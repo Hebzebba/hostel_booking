@@ -7,6 +7,7 @@
 /* GLOBAL STYLES */
 :root {
   --header-color: #e5eec8;
+  height: 100%;
 }
 
 img {
@@ -86,6 +87,9 @@ li {
 /* End of Banner Section */
 
 /* Featured Image gallery */
+.featured-text {
+  color: white;
+}
 .featured-image-title {
   display: flex;
   justify-content: center;
@@ -188,27 +192,44 @@ li {
   font-weight: bolder;
 }
 
+.hostel-image {
+  width: 30%;
+}
 .hostel-rooms {
   display: flex;
   flex-wrap: wrap;
   width: 80%;
   height: auto;
   margin: 0px auto;
+  flex-direction: column;
   justify-content: space-around;
 }
 .hostel-card {
-  width: 20rem;
-  height: 28rem;
+  width: 80;
+  height: 250px;
   box-shadow: 6px 3px 6px grey;
   margin: 10px 0px;
+  padding: 10px;
+  display: flex;
+  justify-content: space-around;
 }
 .hostel-card-image {
-  height: 16rem;
+  flex: 1;
 }
 
 .description-content {
-  width: 80%;
-  margin: 0px auto;
+  flex: 2;
+  padding: 15px;
+}
+
+.hostel-add-content {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  flex: 1;
+  padding: 10px;
+}
+.hostel-add-content:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
 .description-content button {
   background-color: black;
@@ -228,7 +249,7 @@ li {
 
 /* Details container style start */
 .details-container {
-  height: 79vh;
+  height: 100%;
   padding: 0px 20px;
 }
 .hostel-image-form {
@@ -238,14 +259,32 @@ li {
 
 .hostel-image {
   flex: 1;
+  height: 400px;
 }
 .hostel-form {
-  flex: 1;
+  flex: 3;
 }
-.form-description-container,
+.form-description-container {
+  width: 60%;
+  margin: 0px auto;
+}
+.steps-content {
+  margin-top: 5px;
+  border: 1px dashed #e9e9e9;
+  border-radius: 2px;
+  background-color: #fafafa;
+  min-height: 200px;
+  text-align: center;
+  padding-top: 80px;
+}
+
+.steps-action {
+  margin-top: 10px;
+}
+
 .map-container {
   width: 80%;
-  margin: 0px auto;
+  margin: 10px auto;
 }
 .form-group {
   width: 50%;
@@ -266,8 +305,83 @@ li {
 }
 
 /* Details container style end*/
+
+/* Login form styles */
+
+.form-container {
+  margin: 5% auto;
+  width: 25%;
+  /* border: 2px solid black; */
+  box-shadow: 6px 3px 6px 3px grey;
+  padding: 20px;
+}
+/* .form input[type="email"],
+input[type="password"],
+input[type="submit"] {
+  width: 100%;
+  height: 2rem;
+  margin: 10px 0px;
+  padding: 0px 10px;
+} */
+
+#components-form-demo-normal-login .login-form {
+  max-width: 300px;
+}
+#components-form-demo-normal-login .login-form-forgot {
+  float: right;
+}
+#components-form-demo-normal-login .ant-col-rtl .login-form-forgot {
+  float: left;
+}
+#components-form-demo-normal-login .login-form-button {
+  width: 100%;
+}
+/* End of Login form styles */
+
+/* Dashboard styles */
+
+#components-layout-demo-custom-trigger .trigger {
+  font-size: 18px;
+  line-height: 64px;
+  padding: 0 24px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+#components-layout-demo-custom-trigger .trigger:hover {
+  color: #1890ff;
+}
+
+#components-layout-demo-custom-trigger .logo {
+  height: 32px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 16px;
+}
+
+.site-layout .site-layout-background {
+  background: #fff;
+}
+/* End of Dashboard styles */
+
 .footer {
   width: auto;
   height: 70px;
   background-color: var(--header-color);
+}
+
+@media (max-width: 500px) {
+  .form-container {
+    width: 50%;
+  }
+}
+
+@media (max-width: 800px) {
+  .form-container {
+    width: 50%;
+  }
+}
+@media (max-width: 900px) {
+  .form-container {
+    width: 50%;
+  }
 }

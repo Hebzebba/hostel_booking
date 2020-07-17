@@ -31,7 +31,7 @@ export const detail = (payload) => {
 export const fetchData = () => (dispatch) => {
   dispatch(start());
   axios
-    .get("http://localhost:5000/api")
+    .get("http://localhost:5000/datalist")
     .then((res) => {
       dispatch(success(res.data));
     })
@@ -39,14 +39,11 @@ export const fetchData = () => (dispatch) => {
       dispatch(error(err));
     });
 };
+
 export const fetchDataDetail = (id) => (dispatch) => {
   dispatch(start());
   axios
-    .get(`http://localhost:5000/api/${id}`)
-    .then((res) => {
-      dispatch(detail(res.data));
-    })
-    .catch((err) => {
-      dispatch(error(err));
-    });
+    .get(`http://localhost:5000/details/${id}`)
+    .then((result) => dispatch(detail(result.data)))
+    .catch((err) => dispatch(error(err)));
 };
