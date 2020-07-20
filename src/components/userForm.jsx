@@ -1,8 +1,11 @@
 import React, { useState } from "react";
-import { Form, Input, Button, Select, DatePicker, InputNumber } from "antd";
+import { Form, Input, Select, DatePicker } from "antd";
+import "react-phone-number-input/style.css";
+import PhoneInput from "react-phone-number-input";
 
 const UserForm = () => {
-  const [componentSize, setComponentSize] = useState("default");
+  const [componentSize, setComponentSize] = useState("");
+  const [value, setValue] = useState();
 
   const onFormLayoutChange = ({ size }) => {
     setComponentSize(size);
@@ -23,11 +26,12 @@ const UserForm = () => {
         }}
         onValuesChange={onFormLayoutChange}
         size={componentSize}
+        className="pt-3"
       >
-        <Form.Item label="Full name" name="size">
+        <Form.Item label="Full name" required={true}>
           <Input type="text" required={true} />
         </Form.Item>
-        <Form.Item label="Last name">
+        <Form.Item label="Email" required={true}>
           <Input type="email" required={true} />
         </Form.Item>
         <Form.Item label="Gender" required={true}>
@@ -36,11 +40,8 @@ const UserForm = () => {
             <Select.Option value="female">Female</Select.Option>
           </Select>
         </Form.Item>
-        <Form.Item label="DatePicker">
+        <Form.Item label="Date" required={true}>
           <DatePicker />
-        </Form.Item>
-        <Form.Item label="Tel">
-          <InputNumber />
         </Form.Item>
       </Form>
     </>

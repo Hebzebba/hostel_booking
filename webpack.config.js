@@ -10,8 +10,8 @@ module.exports = {
       },
     ],
   },
-  output: {
-    path: "assets",
-    publicPath: "/",
-  },
+  // output: {
+  //   path: "assets",
+  //   publicPath: "/",
+  // },
 };

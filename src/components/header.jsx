@@ -1,50 +1,51 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import {
+  MDBNavbar,
+  MDBNavbarBrand,
+  MDBNavbarNav,
+  MDBNavItem,
+  MDBNavLink,
+  MDBNavbarToggler,
+  MDBCollapse,
+  MDBBtn,
+  MDBIcon,
+} from "mdbreact";
 
-class Header extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+class NavigationBar extends Component {
+  state = {
+    isOpen: false,
+  };
+
+  toggleCollapse = () => {
+    this.setState({ isOpen: !this.state.isOpen });
+  };
+
   render() {
     return (
-      <div className="header">
-        {/* Brand */}
-        <div className="brand">
-          <div className="logo">
-            <img src="/images/home.png" alt="..." />
-          </div>
-          <h4>HOSTEL BOOKING</h4>
-        </div>
-        {/* Navigation */}
-        <div className="navigation">
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/rooms">Rooms</Link>
-            </li>
-          </ul>
-        </div>
-
-        {/* Social links */}
-        <div className="socials-links">
-          <div className="social-link">
-            <img src="/images/whatsapp.png" alt="" />
-          </div>
-
-          <div className="social-link">
-            <img src="/images/facebook.png" alt="" />
-          </div>
-
-          <div className="social-link">
-            <img src="/images/twitter.png" alt="" />
-          </div>
-        </div>
-      </div>
+      <MDBNavbar color="default-color" dark expand="md">
+        <MDBNavbarBrand>
+          <strong className="white-text">KTU HOSTEL RESERVATION</strong>
+        </MDBNavbarBrand>
+        <MDBNavbarToggler onClick={this.toggleCollapse} />
+        <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
+          <MDBNavbarNav left>
+            <MDBNavItem active>
+              <MDBNavLink to="/home">Home</MDBNavLink>
+            </MDBNavItem>
+            <MDBNavItem>
+              <MDBNavLink to="/rooms">Hostels</MDBNavLink>
+            </MDBNavItem>
+          </MDBNavbarNav>
+          <MDBNavbarNav right>
+            <MDBNavItem>
+              <MDBIcon icon="user" />
+              <MDBBtn color="secondary">Logout</MDBBtn>
+            </MDBNavItem>
+          </MDBNavbarNav>
+        </MDBCollapse>
+      </MDBNavbar>
     );
   }
 }
 
-export default Header;
+export default NavigationBar;

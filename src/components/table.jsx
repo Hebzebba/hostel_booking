@@ -1,215 +1,219 @@
-import React, { useContext, useState, useEffect, useRef } from "react";
-import { Table, Input, Button, Popconfirm, Form } from "antd";
+import React from "react";
+import { MDBDataTable } from "mdbreact";
 
-const EditableContext = React.createContext();
+const TableData = () => {
+  const data = {
+    columns: [
+      {
+        label: "Name",
+        field: "name",
+        sort: "asc",
+        width: 150,
+      },
+      {
+        label: "Position",
+        field: "position",
+        sort: "asc",
+        width: 270,
+      },
+      {
+        label: "Office",
+        field: "office",
+        sort: "asc",
+        width: 200,
+      },
+      {
+        label: "Age",
+        field: "age",
+        sort: "asc",
+        width: 100,
+      },
+      {
+        label: "Start date",
+        field: "date",
+        sort: "asc",
+        width: 150,
+      },
+      {
+        label: "Salary",
+        field: "salary",
+        sort: "asc",
+        width: 100,
+      },
+    ],
+    rows: [
+      {
+        name: "Howard Hatfield",
+        position: "Office Manager",
+        office: "San Francisco",
+        age: "51",
+        date: "2008/12/16",
+        salary: "$164",
+      },
+      {
+        name: "Hope Fuentes",
+        position: "Secretary",
+        office: "San Francisco",
+        age: "41",
+        date: "2010/02/12",
+        salary: "$109",
+      },
+      {
+        name: "Vivian Harrell",
+        position: "Financial Controller",
+        office: "San Francisco",
+        age: "62",
+        date: "2009/02/14",
+        salary: "$452",
+      },
+      {
+        name: "Timothy Mooney",
+        position: "Office Manager",
+        office: "London",
+        age: "37",
+        date: "2008/12/11",
+        salary: "$136",
+      },
+      {
+        name: "Jackson Bradshaw",
+        position: "Director",
+        office: "New York",
+        age: "65",
+        date: "2008/09/26",
+        salary: "$645",
+      },
+      {
+        name: "Olivia Liang",
+        position: "Support Engineer",
+        office: "Singapore",
+        age: "64",
+        date: "2011/02/03",
+        salary: "$234",
+      },
+      {
+        name: "Bruno Nash",
+        position: "Software Engineer",
+        office: "London",
+        age: "38",
+        date: "2011/05/03",
+        salary: "$163",
+      },
+      {
+        name: "Sakura Yamamoto",
+        position: "Support Engineer",
+        office: "Tokyo",
+        age: "37",
+        date: "2009/08/19",
+        salary: "$139",
+      },
+      {
+        name: "Thor Walton",
+        position: "Developer",
+        office: "New York",
+        age: "61",
+        date: "2013/08/11",
+        salary: "$98",
+      },
+      {
+        name: "Finn Camacho",
+        position: "Support Engineer",
+        office: "San Francisco",
+        age: "47",
+        date: "2009/07/07",
+        salary: "$87",
+      },
+      {
+        name: "Serge Baldwin",
+        position: "Data Coordinator",
+        office: "Singapore",
+        age: "64",
+        date: "2012/04/09",
+        salary: "$138",
+      },
+      {
+        name: "Zenaida Frank",
+        position: "Software Engineer",
+        office: "New York",
+        age: "63",
+        date: "2010/01/04",
+        salary: "$125",
+      },
+      {
+        name: "Zorita Serrano",
+        position: "Software Engineer",
+        office: "San Francisco",
+        age: "56",
+        date: "2012/06/01",
+        salary: "$115",
+      },
+      {
+        name: "Jennifer Acosta",
+        position: "Junior Javascript Developer",
+        office: "Edinburgh",
+        age: "43",
+        date: "2013/02/01",
+        salary: "$75",
+      },
+      {
+        name: "Cara Stevens",
+        position: "Sales Assistant",
+        office: "New York",
+        age: "46",
+        date: "2011/12/06",
+        salary: "$145",
+      },
+      {
+        name: "Hermione Butler",
+        position: "Regional Director",
+        office: "London",
+        age: "47",
+        date: "2011/03/21",
+        salary: "$356",
+      },
+      {
+        name: "Lael Greer",
+        position: "Systems Administrator",
+        office: "London",
+        age: "21",
+        date: "2009/02/27",
+        salary: "$103",
+      },
+      {
+        name: "Jonas Alexander",
+        position: "Developer",
+        office: "San Francisco",
+        age: "30",
+        date: "2010/07/14",
+        salary: "$86",
+      },
+      {
+        name: "Shad Decker",
+        position: "Regional Director",
+        office: "Edinburgh",
+        age: "51",
+        date: "2008/11/13",
+        salary: "$183",
+      },
+      {
+        name: "Michael Bruce",
+        position: "Javascript Developer",
+        office: "Singapore",
+        age: "29",
+        date: "2011/06/27",
+        salary: "$183",
+      },
+      {
+        name: "Donna Snider",
+        position: "Customer Support",
+        office: "New York",
+        age: "27",
+        date: "2011/01/25",
+        salary: "$112",
+      },
+    ],
+  };
 
-const EditableRow = ({ index, ...props }) => {
-  const [form] = Form.useForm();
-  return (
-    <Form form={form} component={false}>
-      <EditableContext.Provider value={form}>
-        <tr {...props} />
-      </EditableContext.Provider>
-    </Form>
-  );
+  return <MDBDataTable striped bordered small data={data} />;
 };
-
-const EditableCell = ({
-  title,
-  editable,
-  children,
-  dataIndex,
-  record,
-  handleSave,
-  ...restProps
-}) => {
-  const [editing, setEditing] = useState(false);
-  const inputRef = useRef();
-  const form = useContext(EditableContext);
-  useEffect(() => {
-    if (editing) {
-      inputRef.current.focus();
-    }
-  }, [editing]);
-
-  const toggleEdit = () => {
-    setEditing(!editing);
-    form.setFieldsValue({
-      [dataIndex]: record[dataIndex],
-    });
-  };
-
-  const save = async (e) => {
-    try {
-      const values = await form.validateFields();
-      toggleEdit();
-      handleSave({ ...record, ...values });
-    } catch (errInfo) {
-      console.log("Save failed:", errInfo);
-    }
-  };
-
-  let childNode = children;
-
-  if (editable) {
-    childNode = editing ? (
-      <Form.Item
-        style={{
-          margin: 0,
-        }}
-        name={dataIndex}
-        rules={[
-          {
-            required: true,
-            message: `${title} is required.`,
-          },
-        ]}
-      >
-        <Input ref={inputRef} onPressEnter={save} onBlur={save} />
-      </Form.Item>
-    ) : (
-      <div
-        className="editable-cell-value-wrap"
-        style={{
-          paddingRight: 24,
-        }}
-        onClick={toggleEdit}
-      >
-        {children}
-      </div>
-    );
-  }
-
-  return <td {...restProps}>{childNode}</td>;
-};
-
-class TableData extends React.Component {
-  constructor(props) {
-    super(props);
-    this.columns = [
-      {
-        title: "name",
-        dataIndex: "name",
-        width: "30%",
-        editable: true,
-      },
-      {
-        title: "age",
-        dataIndex: "age",
-      },
-      {
-        title: "address",
-        dataIndex: "address",
-      },
-      {
-        title: "operation",
-        dataIndex: "operation",
-        render: (text, record) =>
-          this.state.dataSource.length >= 1 ? (
-            <Popconfirm
-              title="Sure to delete?"
-              onConfirm={() => this.handleDelete(record.key)}
-            >
-              <a>Delete</a>
-            </Popconfirm>
-          ) : null,
-      },
-    ];
-    this.state = {
-      dataSource: [
-        {
-          key: "0",
-          name: "Edward King 0",
-          age: "32",
-          address: "London, Park Lane no. 0",
-        },
-        {
-          key: "1",
-          name: "Edward King 1",
-          age: "32",
-          address: "London, Park Lane no. 1",
-        },
-      ],
-      count: 2,
-    };
-  }
-
-  handleDelete = (key) => {
-    const dataSource = [...this.state.dataSource];
-    this.setState({
-      dataSource: dataSource.filter((item) => item.key !== key),
-    });
-  };
-
-  handleAdd = () => {
-    const { count, dataSource } = this.state;
-    const newData = {
-      key: count,
-      name: `Edward King ${count}`,
-      age: 32,
-      address: `London, Park Lane no. ${count}`,
-    };
-    this.setState({
-      dataSource: [...dataSource, newData],
-      count: count + 1,
-    });
-  };
-
-  handleSave = (row) => {
-    const newData = [...this.state.dataSource];
-    const index = newData.findIndex((item) => row.key === item.key);
-    const item = newData[index];
-    newData.splice(index, 1, { ...item, ...row });
-    this.setState({
-      dataSource: newData,
-    });
-  };
-
-  render() {
-    const { dataSource } = this.state;
-    const components = {
-      body: {
-        row: EditableRow,
-        cell: EditableCell,
-      },
-    };
-    const columns = this.columns.map((col) => {
-      if (!col.editable) {
-        return col;
-      }
-
-      return {
-        ...col,
-        onCell: (record) => ({
-          record,
-          editable: col.editable,
-          dataIndex: col.dataIndex,
-          title: col.title,
-          handleSave: this.handleSave,
-        }),
-      };
-    });
-    return (
-      <div>
-        <Button
-          onClick={this.handleAdd}
-          type="primary"
-          style={{
-            marginBottom: 16,
-          }}
-        >
-          Add a row
-        </Button>
-        <Table
-          components={components}
-          rowClassName={() => "editable-row"}
-          bordered
-          dataSource={dataSource}
-          columns={columns}
-        />
-      </div>
-    );
-  }
-}
 
 export default TableData;
