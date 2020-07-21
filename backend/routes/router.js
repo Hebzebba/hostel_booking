@@ -30,7 +30,7 @@ router.route("/datalist").get((req, res) => {
     .catch((error) => console.log("error"));
 });
 
-router.route("/add").post(upload.single("hostelImage"), (req, res) => {
+router.route("/add").post(upload.array("hostelImage", 20), (req, res) => {
   const url = `${req.protocol}`;
   const host = "localhost";
   const port = 5000;
@@ -38,8 +38,13 @@ router.route("/add").post(upload.single("hostelImage"), (req, res) => {
   const Hostel = new hostel({
     hostel_name: req.body.hostel_name,
     price: req.body.price,
-    number_of_rooms: req.body.number_of_rooms,
-    hostel_image: `${url}://${host}:${port}/images/${req.file.filename}`,
+    room_capacity: req.body.room_capacity,
+    description: req.body.description,
+    distance: req.body.distance,
+    hostel_type: req.body.hostel_type,
+    hostel_image: req.files.map(
+      (file) => `${url}://${host}:${port}/images/${file.filename}`
+    ),
     map_area: req.body.map_area,
   });
   Hostel.save()
