@@ -1,6 +1,19 @@
 const router = require("express").Router();
 const hostel = require("../model/DataModel");
+const Admin = require('../model/adminData');
+// const User = require("../model/userModels")
+const Student = require("../model/students")
+
 const multer = require("multer");
+var jwt = require('jsonwebtoken');
+
+
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+const myPlaintextPassword = 's0/\/\P4$$w0rD';
+const someOtherPlaintextPassword = 'not_bacon';
+
+
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -13,9 +26,9 @@ const storage = multer.diskStorage({
 
 const upload = multer({
   storage: storage,
-  // limits: {
-  //   filesize: 1024 * 1024,
-  // },
+  limits: {
+    filesize: 1024 * 1024,
+  },
 });
 
 // const upload = multer({ dest: "ImageUpload" });
@@ -79,5 +92,137 @@ router.route("/delete/:id").delete((req, res) => {
     })
     .catch((err) => err);
 });
+
+// User Authentication 
+
+router.route('/signup').post((req,res)=>{
+
+Admin.find({email:req.body.email})
+.exec()
+.then(result=>{
+  if(result.length >=1){
+    return res.status(409).json({msg:"User with that email already exist"})
+  }else{
+    bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
+
+      const admin = new Admin({
+        admin_name:req.body.admin_name,
+        email:req.body.email,
+        password:hash,
+      });
+      admin.save()
+      .then(result=>{res.send({msg:"User added", result})})
+      .catch(err=>err)
+      });
+  }
+})
+.catch()
+});
+
+
+router.route('/adminlogin').post((req,res)=>{
+
+Admin.find({email:req.body.email})
+.exec()
+.then(user=>{
+  if(user.length < 1){
+   res.status(401).json({msg:"Data  not found"});
+  }else{  
+  bcrypt.compare(req.body.password,user[0].password, function(err, resu) {
+    if(resu){
+
+      let token = jwt.sign(
+        {
+          name:user[0].admin_name,
+          email:user[0].email,
+      } ,
+      process.env.JWT_KEY,
+      {
+        expiresIn:'1h'
+      }
+      );
+
+      res.status(201).json({
+        msg:"Auth sucessfull",
+        token:token,
+      })
+    }else{
+      res.status(401).json({msg:"Did not match"})
+    }
+});
+   
+   
+  }
+}).catch(err=>err)
+
+})
+
+
+
+
+router.route('/studentSignup').post((req,res)=>{
+  
+
+    Student.find({email:req.body.index_number})
+    .exec()
+    .then(result=>{
+      if(result.length >=1){
+        return res.status(409).json({msg:"User with that email already exist"})
+      }else{
+        bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
+
+          const student = new Student({
+            f_name:req.body.f_name,
+            l_name:req.body.l_name,
+            email:req.body.email,
+            index_number:req.body.index_number,
+            password:hash,
+            gender:req.body.level,
+            level:req.body.level,
+            date:req.body.date,
+          });
+          student.save()
+          .then(result=>{res.send({msg:"student added", result})})
+          .catch(err=>err)
+          })
+    }}).catch()
+
+});
+
+
+router.route('/studentlogin').post((req,res)=>{
+
+  Student.find({index_number:req.body.index_number})
+  .exec()
+  .then(user=>{
+    if(user.length < 1){
+     res.status(401).json({msg:"Data  not found"});
+    }else{  
+    bcrypt.compare(req.body.password,user[0].password, function(err, resu) {
+      if(resu){
+  
+        let token = jwt.sign(
+          {
+            name:user[0].index_number,
+        } ,
+        process.env.JWT_KEY,
+        {
+          expiresIn:'1h'
+        }
+        );
+  
+        res.status(201).json({
+          token:token,
+        })
+      }else{
+        res.status(401).json({msg:"Did not match"})
+      }
+  });
+     
+     
+    }
+  }).catch(err=>err)
+  
+  });
 
 module.exports = router;

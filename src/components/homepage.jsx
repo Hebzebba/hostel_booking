@@ -3,6 +3,9 @@ import CarouselPage from "./carousel";
 import NavigationBar from "./header";
 import Footer from "./footer";
 import "bootstrap/dist/css/bootstrap.css";
+import {connect} from "react-redux";
+import { studentLogin } from "../store/actions/actions";
+
 
 import {
   HomeOutlined,
@@ -16,6 +19,7 @@ class Home extends Component {
     this.state = {};
   }
   render() {
+    
     return (
       <div className="home-container">
         <NavigationBar />
@@ -72,4 +76,9 @@ class Home extends Component {
   }
 }
 
-export default Home;
+
+const mapStateToprops = state=>({
+
+})
+
+export default connect(mapStateToprops,{studentLogin})(Home);

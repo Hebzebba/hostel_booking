@@ -1,13 +1,8 @@
 import React from "react";
-import { BrowserRouter as Router } from "react-router-dom";
+import {connect} from "react-redux";
+import { studentLogin } from "../store/actions/actions";
+import {Redirect} from "react-router-dom"
 import {
-  MDBNavbar,
-  MDBNavbarBrand,
-  MDBNavbarNav,
-  MDBNavItem,
-  MDBNavLink,
-  MDBNavbarToggler,
-  MDBCollapse,
   MDBMask,
   MDBRow,
   MDBCol,
@@ -18,7 +13,6 @@ import {
   MDBCard,
   MDBCardBody,
   MDBInput,
-  MDBFormInline,
   MDBAnimation,
 } from "mdbreact";
 
@@ -27,9 +21,17 @@ class ClassicFormPage extends React.Component {
     collapseID: "",
   };
 
-  //
+   
+  
   render() {
-    return (
+    // this.props.dispatch(studentLogin("04/2017/1720D","changeme"))
+    // console.log(this.props.token);
+    
+
+
+   
+    if(this.props.token === "") {
+      return (
       <div id="classicformpage">
         <MDBView>
           <MDBMask className="d-flex justify-content-center align-items-center gradient" />
@@ -89,7 +91,13 @@ class ClassicFormPage extends React.Component {
         </MDBView>
       </div>
     );
+  } else{
+    return <Redirect to="/home" />
   }
 }
+}
 
-export default ClassicFormPage;
+const mapStateToprops = state=>({
+token : state.studentLogin.token.token
+})
+export default connect(mapStateToprops)(ClassicFormPage);

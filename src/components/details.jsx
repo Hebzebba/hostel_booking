@@ -4,16 +4,18 @@ import {
   UserOutlined,
   SolutionOutlined,
   LoadingOutlined,
+  PushpinOutlined,
+  HomeOutlined,
 } from "@ant-design/icons";
 import {
   MDBCard,
   MDBCardBody,
   MDBCardImage,
   MDBCardTitle,
-  MDBCardText,
   MDBRow,
   MDBCol,
   MDBCardHeader,
+  MDBContainer,
 } from "mdbreact";
 import Payment from "./payments";
 
@@ -64,30 +66,105 @@ const Details = (props) => {
     dispatch(fetchDataDetail(props.match.params.id));
   }, []);
 
+  let imagesrc = [];
+
+  if (details.hostel_image === undefined) {
+    console.log("loading.....");
+  } else {
+    imagesrc = details.hostel_image;
+  }
+
   return (
     <>
       <div className="main-container">
         <Header />
-        <div className="container-fluid">
+
+        <div className="container-fluid ">
           <MDBRow>
-            <MDBCol style={{ width: "100%" }}>
-              <MDBCard reverse>
-                <MDBCardImage
-                  cascade
-                  style={{ width: "100%", height: "20rem" }}
-                  src={details.hostel_image}
-                />
-                <MDBCardBody cascade className="text-center">
+            <MDBCol className="col-md-12 col-sm-12">
+              <MDBCard>
+                <MDBCardHeader>
                   <MDBCardTitle>{details.hostel_name}</MDBCardTitle>
-                  <MDBCardText>
-                    Sed ut perspiciatis unde omnis iste natus sit voluptatem
-                    accusantium doloremque laudantium, totam rem aperiam.
-                  </MDBCardText>
+                </MDBCardHeader>
+                <MDBCardBody>
+                  <MDBRow>
+                    <MDBCol sm="12" md="4">
+                      <MDBCard
+                        className="p-3"
+                        style={{ width: "18rem", height: "10rem" }}
+                      >
+                        <p>
+                          <span>
+                            <PushpinOutlined
+                              style={{ color: "red", fontSize: "20px" }}
+                            />
+                          </span>
+                          Wonderful <b>Location</b>
+                        </p>
+
+                        <p>
+                          <span>
+                            <UserOutlined
+                              style={{ color: "green", fontSize: "20px" }}
+                            />
+                          </span>
+                          Marvellous <b>Staff</b>
+                        </p>
+                        <p>
+                          <span>
+                            <HomeOutlined
+                              style={{ color: "blue", fontSize: "20px" }}
+                            />
+                          </span>
+                          Exellent <b>Cleanliness</b>
+                        </p>
+                      </MDBCard>
+                    </MDBCol>
+                    <MDBCol sm="12" md="8">
+                      <h4>Overview </h4>
+                      <p>
+                        With Paris’ international station Gare du Nord just a
+                        three-minute stroll away, we're well connected at St
+                        Christopher’s Inn. And with Belushi’s (the bar that has
+                        Paris' biggest happy hour) just downstairs, our hostel's
+                        ideal for meeting new people. Hang out with fellow
+                        travellers and make the most of the special 2-for-1
+                        drinks deals and 25% off food (yes really!). And when
+                        you get back from our free city walking tour, you'll be
+                        thankful for our elevators!
+                      </p>
+                      <h4>Location</h4>
+                      <p>
+                        We’re located in the bohemian 10th arrondissement – less
+                        than an hour's train ride from Charles de Gaulle
+                        airport. Once you’ve made use of our handy online
+                        check-in (up to 24 hours before arrival), take the Métro
+                        at Gard de l’Est to Notre Dame and switch lines for the
+                        Arc de Triomphe and La Tour Eiffel (Eiffel Tower).
+                        Foodies should check out the Marché Saint-Quentin, just
+                        a five-minute stroll away. If art's more your thing,
+                        jump on the Métro for seven stops to see the Mona Lisa
+                        at the Louvre – she's smaller than you think!
+                      </p>
+                    </MDBCol>
+                  </MDBRow>
                 </MDBCardBody>
               </MDBCard>
             </MDBCol>
+            <MDBContainer>
+              <MDBRow>
+                {imagesrc.map((img) => (
+                  <MDBCol md="1" className="p-0 mt-2" key={img}>
+                    <MDBCard>
+                      <MDBCardImage className="img-fluid" src={img} />
+                    </MDBCard>
+                  </MDBCol>
+                ))}
+              </MDBRow>
+            </MDBContainer>
           </MDBRow>
         </div>
+
         <div className="container-fluid pt-3">
           <div className="row">
             <div className="col-md-6 col-sm-12">
@@ -133,12 +210,6 @@ const Details = (props) => {
               </MDBCard>
             </div>
             <div className="col-md-6 col-sm-12">
-              <MDBCard className="mb-2 mt-2">
-                <MDBCardHeader>
-                  <MDBCardTitle className="m-auto">Description</MDBCardTitle>
-                </MDBCardHeader>
-                <MDBCardBody></MDBCardBody>
-              </MDBCard>
               <MDBCard>
                 <MDBCardHeader>
                   <MDBCardTitle className="m-auto">Map Location</MDBCardTitle>

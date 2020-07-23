@@ -27,7 +27,7 @@ const CarouselPage = () => {
             <MDBView>
               <img
                 className="d-block w-100"
-                src="https://mdbootstrap.com/img/Photos/Slides/img%20(68).jpg"
+                src="/images/coming_home.svg"
                 alt="First slide"
               />
               <MDBMask overlay="black-light" />

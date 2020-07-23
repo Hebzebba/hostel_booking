@@ -6,8 +6,8 @@ const User = new mongoose.Schema({
   gender: { type: String, trim: true },
   level: { type: String, required: true },
   room_type: { type: String, trim: true },
-  date: { type: String },
   tel_number: { type: String },
+  date: { type: String },
 });
 
 const user = mongoose.model("HostelUser", User);

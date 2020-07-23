@@ -5,10 +5,13 @@ import {
   fetcDataDetailReducer,
 } from "./reducers/fetchDataReducer";
 
+import {authReducer} from "./reducers/authReducer";
+
 const initialState = {};
 const rootReducer = combineReducers({
   data: fetcDataReducer,
   detailsData: fetcDataDetailReducer,
+  studentLogin:authReducer
 });
 const composeEnhancers =
   (typeof window !== "undefined" &&

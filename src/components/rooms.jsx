@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import Header from "./header";
+import Footer from "./footer";
 import "bootstrap/dist/css/bootstrap.css";
 
 import "antd/dist/antd.css";
@@ -14,8 +14,8 @@ import {
   MDBCardText,
   MDBRow,
   MDBCol,
-  MDBIcon,
   MDBBtn,
+  MDBCardHeader,
 } from "mdbreact";
 
 import { fetchData } from "../store/actions/actions";
@@ -56,51 +56,38 @@ const Rooms = () => {
           </MDBRow>
         </div>
 
-        <div className="container-fluid pt-3">
+        <div className="container-fluid pt-3 m-auto">
           <MDBRow>
             {datalist.map((data) => (
-              <MDBCol md="4" className="mt-3">
-                <MDBCard cascade>
+              <MDBCol md="4" className="mt-2">
+                <MDBCard>
                   <MDBCardImage
-                    cascade
                     className="img-fluid"
-                    overlay="white-light"
-                    hover
-                    src={data.hostel_image}
+                    src={data.hostel_image[0]}
+                    waves
                   />
-                  <Link to={`/details/${data._id}`}>
-                    <MDBBtn
-                      floating
-                      tag="a"
-                      className="ml-auto mr-4 lighten-3 mdb-coalor"
-                      action
-                    >
-                      <MDBIcon
-                        icon="chevron-right"
-                        className="mdb-color lighten-3"
-                      />
+                  <MDBCardBody>
+                    <MDBCardHeader>
+                      <MDBCardTitle>{data.hostel_name} Hostel</MDBCardTitle>
+                    </MDBCardHeader>
+                    <MDBCardBody>
+                      <p className="text-info">
+                        Price : <b>{data.price}</b>
+                      </p>
+                      <p className="text-info">
+                        Type : <b>{data.hostel_type}</b>
+                      </p>
+                    </MDBCardBody>
+                    <MDBBtn gradient="blue" href={`/details/${data._id}`}>
+                      Read more
                     </MDBBtn>
-                  </Link>
-                  <MDBCardBody cascade>
-                    <MDBCardTitle>{data.hostel_name}</MDBCardTitle>
-                    <hr />
-                    <MDBCardText>
-                      Some quick example text to build on the card title and
-                      make up the bulk of the card's content.
-                    </MDBCardText>
                   </MDBCardBody>
-                  <div className="rounded-bottom mdb-color lighten-3 text-center pt-3">
-                    <ul className="list-unstyled list-inline font-small">
-                      <li className="list-inline-item pr-2 text-light">
-                        Price : {data.price}
-                      </li>
-                    </ul>
-                  </div>
                 </MDBCard>
               </MDBCol>
             ))}
           </MDBRow>
         </div>
+        <Footer />
       </div>
     </>
   );
