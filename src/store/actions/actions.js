@@ -48,6 +48,46 @@ export const fetchDataDetail = (id) => (dispatch) => {
     .catch((err) => dispatch(error(err)));
 };
 
+// Post data
+export const postStart = ()=>({
+  type:actionTpes.POST_DATA_START,
+});
+
+export const postSucces = ()=>({
+  type:actionTpes.POST_DATA_SUCCESS,
+});
+
+export const postFail = ()=>({
+  type:actionTpes.POST_DATA_FAIL,
+});
+
+export const addData = (
+  hostel_name, 
+  price,
+   room_capacity,
+    description,
+     distance,
+     hostel_type,
+       hostel_image, 
+      map_area
+      )=>dispatch=>{
+  dispatch(postStart());
+
+  axios.post("http://localhost:5000/add",
+  {
+    hostel_name: hostel_name,
+    price:price,
+    room_capacity:room_capacity,
+    description:description,
+    distance : distance,
+    hostel_type:hostel_image,
+    hostel_image:hostel_image,
+    map_area:map_area
+  }
+  )
+  .then(result=>dispatch(postSucces()))
+  .catch(err=>dispatch(postFail()))
+}
 
 
 // Authentication

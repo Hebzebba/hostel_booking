@@ -26,3 +26,16 @@ export const fetcDataDetailReducer = (state = [], action) => {
       return state;
   }
 };
+
+export const postDataReducer = (state = {}, action) => {
+  switch (action.type) {
+    case actionTypes.POST_DATA_START:
+      return ({...state,loading:true});
+    case actionTypes.POST_DATA_SUCCESS:
+       return ({...state,loading:false});
+    case actionTypes.POST_DATA_FAIL:
+       return ({...state,loading:false,err:true});
+    default:
+      return state;
+  }
+};

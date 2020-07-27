@@ -9,10 +9,14 @@ const app = express();
 const port = 5000;
 const data = require("./data");
 const bodyParser = require("body-parser");
+// const fileUpload = require('express-fileupload');
+
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, "./public")));
+
+
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
@@ -33,7 +37,7 @@ mongoose.connect("mongodb://localhost:27017/hostelBooking", {
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", function () {
-  console.log("Connected");
+  // console.log("Connected");
 });
 
 app.get("/api/:id", (req, res) => {

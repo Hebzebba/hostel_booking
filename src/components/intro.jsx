@@ -30,7 +30,7 @@ class ClassicFormPage extends React.Component {
 
 
    
-    if(this.props.token === "") {
+    if(this.props.token !== "") {
       return (
       <div id="classicformpage">
         <MDBView>

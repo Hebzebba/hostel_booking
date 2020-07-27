@@ -3,6 +3,7 @@ import thunk from "redux-thunk";
 import {
   fetcDataReducer,
   fetcDataDetailReducer,
+  postDataReducer
 } from "./reducers/fetchDataReducer";
 
 import {authReducer} from "./reducers/authReducer";
@@ -11,7 +12,8 @@ const initialState = {};
 const rootReducer = combineReducers({
   data: fetcDataReducer,
   detailsData: fetcDataDetailReducer,
-  studentLogin:authReducer
+  studentLogin:authReducer,
+  post:postDataReducer
 });
 const composeEnhancers =
   (typeof window !== "undefined" &&

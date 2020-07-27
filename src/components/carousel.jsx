@@ -27,7 +27,7 @@ const CarouselPage = () => {
             <MDBView>
               <img
                 className="d-block w-100"
-                src="/images/coming_home.svg"
+                src="/images/bed2.jpg"
                 alt="First slide"
               />
               <MDBMask overlay="black-light" />
@@ -41,7 +41,7 @@ const CarouselPage = () => {
             <MDBView>
               <img
                 className="d-block w-100"
-                src="https://mdbootstrap.com/img/Photos/Slides/img%20(6).jpg"
+                src="/images/bed3.jpg"
                 alt="Second slide"
               />
               <MDBMask overlay="black-strong" />
@@ -55,7 +55,7 @@ const CarouselPage = () => {
             <MDBView>
               <img
                 className="d-block w-100"
-                src="https://mdbootstrap.com/img/Photos/Slides/img%20(9).jpg"
+                src="/images/beds4.jpg"
                 alt="Third slide"
               />
               <MDBMask overlay="black-slight" />

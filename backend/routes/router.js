@@ -43,21 +43,27 @@ router.route("/datalist").get((req, res) => {
     .catch((error) => console.log("error"));
 });
 
-router.route("/add").post(upload.array("hostelImage", 20), (req, res) => {
+router.route("/add").post(upload.array("hostel_image"), (req, res) => {
+
   const url = `${req.protocol}`;
   const host = "localhost";
   const port = 5000;
 
+  console.log(req)
+
   const Hostel = new hostel({
     hostel_name: req.body.hostel_name,
     price: req.body.price,
-    room_capacity: req.body.room_capacity,
+    one_in_a_room: req.body.one_in_a_room,
+    one_in_identity: req.body.one_in_identity,
+    four_in_a_room: req.body.four_in_a_room,
+    four_in_identity: req.body.four_in_identity,
     description: req.body.description,
     distance: req.body.distance,
     hostel_type: req.body.hostel_type,
-    hostel_image: req.files.map(
-      (file) => `${url}://${host}:${port}/images/${file.filename}`
-    ),
+    // hostel_image: req.files.map(
+    //   (file) => `${url}://${host}:${port}/images/${file.filename}`
+    // ),
     map_area: req.body.map_area,
   });
   Hostel.save()
@@ -74,7 +80,9 @@ router.route("/add").post(upload.array("hostelImage", 20), (req, res) => {
 router.route("/details/:id").get((req, res) => {
   const id = req.params.id;
   hostel
-    .findOne({ _id: id })
+    .findOne({
+      _id: id
+    })
     .then((result) => res.json(result))
     .catch((err) => err);
 });
@@ -82,7 +90,9 @@ router.route("/details/:id").get((req, res) => {
 router.route("/delete/:id").delete((req, res) => {
   const id = req.params.id;
   hostel
-    .deleteOne({ _id: id })
+    .deleteOne({
+      _id: id
+    })
     .exec()
     .then((result) => {
       res.send({
@@ -95,134 +105,159 @@ router.route("/delete/:id").delete((req, res) => {
 
 // User Authentication 
 
-router.route('/signup').post((req,res)=>{
+router.route('/signup').post((req, res) => {
 
-Admin.find({email:req.body.email})
-.exec()
-.then(result=>{
-  if(result.length >=1){
-    return res.status(409).json({msg:"User with that email already exist"})
-  }else{
-    bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
-
-      const admin = new Admin({
-        admin_name:req.body.admin_name,
-        email:req.body.email,
-        password:hash,
-      });
-      admin.save()
-      .then(result=>{res.send({msg:"User added", result})})
-      .catch(err=>err)
-      });
-  }
-})
-.catch()
-});
-
-
-router.route('/adminlogin').post((req,res)=>{
-
-Admin.find({email:req.body.email})
-.exec()
-.then(user=>{
-  if(user.length < 1){
-   res.status(401).json({msg:"Data  not found"});
-  }else{  
-  bcrypt.compare(req.body.password,user[0].password, function(err, resu) {
-    if(resu){
-
-      let token = jwt.sign(
-        {
-          name:user[0].admin_name,
-          email:user[0].email,
-      } ,
-      process.env.JWT_KEY,
-      {
-        expiresIn:'1h'
-      }
-      );
-
-      res.status(201).json({
-        msg:"Auth sucessfull",
-        token:token,
-      })
-    }else{
-      res.status(401).json({msg:"Did not match"})
-    }
-});
-   
-   
-  }
-}).catch(err=>err)
-
-})
-
-
-
-
-router.route('/studentSignup').post((req,res)=>{
-  
-
-    Student.find({email:req.body.index_number})
+  Admin.find({
+      email: req.body.email
+    })
     .exec()
-    .then(result=>{
-      if(result.length >=1){
-        return res.status(409).json({msg:"User with that email already exist"})
-      }else{
-        bcrypt.hash(req.body.password, saltRounds, function(err, hash) {
+    .then(result => {
+      if (result.length >= 1) {
+        return res.status(409).json({
+          msg: "User with that email already exist"
+        })
+      } else {
+        bcrypt.hash(req.body.password, saltRounds, function (err, hash) {
+
+          const admin = new Admin({
+            admin_name: req.body.admin_name,
+            email: req.body.email,
+            password: hash,
+          });
+          admin.save()
+            .then(result => {
+              res.send({
+                msg: "User added",
+                result
+              })
+            })
+            .catch(err => err)
+        });
+      }
+    })
+    .catch()
+});
+
+
+router.route('/adminlogin').post((req, res) => {
+
+  Admin.find({
+      email: req.body.email
+    })
+    .exec()
+    .then(user => {
+      if (user.length < 1) {
+        res.status(401).json({
+          msg: "Data  not found"
+        });
+      } else {
+        bcrypt.compare(req.body.password, user[0].password, function (err, resu) {
+          if (resu) {
+
+            let token = jwt.sign({
+                name: user[0].admin_name,
+                email: user[0].email,
+              },
+              process.env.JWT_KEY, {
+                expiresIn: '1h'
+              }
+            );
+
+            res.status(201).json({
+              msg: "Auth sucessfull",
+              token: token,
+            })
+          } else {
+            res.status(401).json({
+              msg: "Did not match"
+            })
+          }
+        });
+
+
+      }
+    }).catch(err => err)
+
+})
+
+
+
+
+router.route('/studentSignup').post((req, res) => {
+  Student.find({
+      email: req.body.index_number
+    })
+    .exec()
+    .then(result => {
+      if (result.length >= 1) {
+        return res.status(409).json({
+          msg: "User with that email already exist"
+        })
+      } else {
+        bcrypt.hash(req.body.password, saltRounds, function (err, hash) {
 
           const student = new Student({
-            f_name:req.body.f_name,
-            l_name:req.body.l_name,
-            email:req.body.email,
-            index_number:req.body.index_number,
-            password:hash,
-            gender:req.body.level,
-            level:req.body.level,
-            date:req.body.date,
+            f_name: req.body.f_name,
+            l_name: req.body.l_name,
+            email: req.body.email,
+            index_number: req.body.index_number,
+            password: hash,
+            gender: req.body.gender,
+            level: req.body.level,
+            date: req.body.date,
           });
           student.save()
-          .then(result=>{res.send({msg:"student added", result})})
-          .catch(err=>err)
-          })
-    }}).catch()
+            .then(result => {
+              res.send({
+                msg: "student added",
+                result
+              })
+            })
+            .catch(err => err)
+        })
+      }
+    }).catch()
 
 });
 
 
-router.route('/studentlogin').post((req,res)=>{
+router.route('/studentlogin').post((req, res) => {
 
-  Student.find({index_number:req.body.index_number})
-  .exec()
-  .then(user=>{
-    if(user.length < 1){
-     res.status(401).json({msg:"Data  not found"});
-    }else{  
-    bcrypt.compare(req.body.password,user[0].password, function(err, resu) {
-      if(resu){
-  
-        let token = jwt.sign(
-          {
-            name:user[0].index_number,
-        } ,
-        process.env.JWT_KEY,
-        {
-          expiresIn:'1h'
-        }
-        );
-  
-        res.status(201).json({
-          token:token,
-        })
-      }else{
-        res.status(401).json({msg:"Did not match"})
+  Student.find({
+      index_number: req.body.index_number
+    })
+    .exec()
+    .then(user => {
+      if (user.length < 1) {
+        res.status(401).json({
+          msg: "Data  not found"
+        });
+      } else {
+        bcrypt.compare(req.body.password, user[0].password, function (err, resu) {
+          if (resu) {
+
+            let token = jwt.sign({
+                name: user[0].index_number,
+              },
+              process.env.JWT_KEY, {
+                expiresIn: '1h'
+              }
+            );
+
+            res.status(201).json({
+              token: token,
+            })
+          } else {
+            res.status(401).json({
+              msg: "Did not match"
+            })
+          }
+        });
+
+
       }
-  });
-     
-     
-    }
-  }).catch(err=>err)
-  
-  });
+    }).catch(err => err)
+
+});
 
 module.exports = router;
