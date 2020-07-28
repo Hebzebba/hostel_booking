@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Header from './header';
 import Footer from './footer';
 import 'bootstrap/dist/css/bootstrap.css';
+import { Redirect } from 'react-router-dom';
 
 import 'antd/dist/antd.css';
 import '../App.css';
@@ -18,7 +19,7 @@ import {
 	MDBCardHeader,
 } from 'mdbreact';
 
-import { fetchData } from '../store/actions/actions';
+import { fetchData, detail } from '../store/actions/actions';
 
 const Rooms = () => {
 	const getUnique = (items, value) => {
@@ -32,7 +33,6 @@ const Rooms = () => {
 	}, []);
 	const list = useSelector((state) => state.data);
 	const { datalist } = list;
-	console.log(datalist);
 
 	let types = getUnique(datalist, 'hostel_type');
 	types = ['all', ...types];
@@ -48,18 +48,18 @@ const Rooms = () => {
 	const [distance, setDistance] = useState('all');
 
 	const hostel_Type = (e) => {
-		setHostelType(e.target.value);
+		return setHostelType(e.target.value);
 	};
 
 	const pri = (e) => {
-		setPrice(e.target.value);
+		return setPrice(e.target.value);
 	};
 
 	const dis = (e) => {
-		setDistance(e.target.value);
+		return setDistance(e.target.value);
 	};
 
-	const filterRooms = (data) => (
+	let filterRooms = (data) => (
 		<MDBCol md='4' className='mt-2' key={data._id}>
 			<MDBCard>
 				<MDBCardImage className='img-fluid' src={data.hostel_image[0]} waves />
@@ -83,6 +83,24 @@ const Rooms = () => {
 		</MDBCol>
 	);
 
+	const filtered = datalist.map((data) => {
+		if (hostelType === data.hostel_type) {
+			return filterRooms(data);
+		}
+		if (Number(price) === data.price) {
+			return filterRooms(data);
+		}
+		if (Number(distance) === data.distance) {
+			return filterRooms(data);
+		}
+		if (price === 'all' && distance === 'all' && hostelType === 'all') {
+			return filterRooms(data);
+		}
+	});
+
+	if (localStorage.getItem('token') === null) {
+		return <Redirect to='/' />;
+	}
 	return (
 		<>
 			<div className='main-container'>
@@ -161,15 +179,7 @@ const Rooms = () => {
 				</div>
 
 				<div className='container-fluid pt-3 m-auto'>
-					<MDBRow>
-						{datalist.map((data) => {
-							if (data.hostel_type === hostelType) {
-								return filterRooms(data);
-							} else if (hostelType === 'all') {
-								return filterRooms(data);
-							}
-						})}
-					</MDBRow>
+					<MDBRow>{filtered}</MDBRow>
 				</div>
 				<Footer />
 			</div>

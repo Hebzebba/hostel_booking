@@ -9,15 +9,11 @@ const Hostel = new mongoose.Schema({
     type: Number,
     trim: true
   },
-  one_in_a_room: {
-    type: Number
-  },
+
   one_in_identity: {
     type: []
   },
-  four_in_a_room: {
-    type: Number
-  },
+
   four_in_identity: {
     type: []
   },

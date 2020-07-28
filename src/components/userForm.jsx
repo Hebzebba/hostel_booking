@@ -1,14 +1,47 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Input, Select, DatePicker } from 'antd';
 import 'react-phone-number-input/style.css';
+import { useDispatch, useSelector } from 'react-redux';
 import PhoneInput from 'react-phone-number-input';
 
-const UserForm = () => {
+const UserForm = (props) => {
 	const [componentSize, setComponentSize] = useState('');
+
+	const [roomType, setroomType] = useState('');
 	const [value, setValue] = useState();
 
 	const onFormLayoutChange = ({ size }) => {
 		setComponentSize(size);
+	};
+
+	const handleChange = (value) => {
+		setroomType(value);
+	};
+
+	const checkRoomType = () => {
+		if (roomType === '1 in a room') {
+			return (
+				<Form.Item label=' Room Number'>
+					<Select>
+						{props.hostelName[0].map((data) => (
+							<Select.Option key={data}>{data}</Select.Option>
+						))}
+					</Select>
+				</Form.Item>
+			);
+		} else if (roomType === '4 in a room') {
+			return (
+				<Form.Item label='Room Number'>
+					<Select>
+						{props.hostelName[1].map((data) => (
+							<Select.Option key={data}>{data}</Select.Option>
+						))}
+					</Select>
+				</Form.Item>
+			);
+		} else {
+			return;
+		}
 	};
 
 	return (
@@ -46,10 +79,29 @@ const UserForm = () => {
 				</Form.Item>
 
 				<Form.Item label='Room Type' required={true}>
-					<Select required={true}>
-						<Select.Option value='male'>1 in a room</Select.Option>
-						<Select.Option value='male'>4 in a room</Select.Option>
+					<Select
+						required={true}
+						value={roomType}
+						onChange={handleChange}
+						defaultValue='Select'>
+						<Select.Option value='Select' name='Select'>
+							Select
+						</Select.Option>
+						<Select.Option value='1 in a room' name='roomType'>
+							1 in a room
+						</Select.Option>
+						<Select.Option value='4 in a room' name='roomType'>
+							4 in a room
+						</Select.Option>
 					</Select>
+				</Form.Item>
+				{checkRoomType()}
+				<Form.Item label='Date' required={true}>
+					<PhoneInput
+						placeholder='Enter phone number'
+						value={value}
+						onChange={setValue}
+					/>
 				</Form.Item>
 
 				<Form.Item label='Date' required={true}>

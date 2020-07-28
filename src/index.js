@@ -6,13 +6,23 @@ import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
-import { Provider } from "react-redux";
-import { store } from "./store/store";
+import {
+  Provider
+} from "react-redux";
+import {
+  store
+} from "./store/store";
 
-ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+
+
+ReactDOM.render( <
+  Provider store = {
+    store
+  } >
+  <
+  App / >
+  <
+  /Provider>,
   document.getElementById("root")
 );
 

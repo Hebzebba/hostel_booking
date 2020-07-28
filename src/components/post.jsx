@@ -139,6 +139,21 @@ class Post extends Component {
 									onChange={this.handleChange}
 									name='hostel_name'
 								/>
+
+								<label
+									htmlFor='defaultFormRegisterEmailEx'
+									className='grey-text'>
+									Hostel Contact
+								</label>
+								<input
+									type='number'
+									id='defaultFormRegisterEmailEx'
+									className='form-control'
+									value={this.state.price}
+									onChange={this.handleChange}
+									name='contact'
+								/>
+								<br />
 								<label
 									htmlFor='defaultFormRegisterEmailEx'
 									className='grey-text'>
