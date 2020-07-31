@@ -23,8 +23,8 @@ const UserForm = (props) => {
 			return (
 				<Form.Item label=' Room Number'>
 					<Select>
-						{props.hostelName[0].map((data) => (
-							<Select.Option key={data}>{data}</Select.Option>
+						{props.hostelName[0].map((data, key) => (
+							<Select.Option key={key}>{data}</Select.Option>
 						))}
 					</Select>
 				</Form.Item>
@@ -33,8 +33,8 @@ const UserForm = (props) => {
 			return (
 				<Form.Item label='Room Number'>
 					<Select>
-						{props.hostelName[1].map((data) => (
-							<Select.Option key={data}>{data}</Select.Option>
+						{props.hostelName[1].map((data, key) => (
+							<Select.Option key={key}>{data}</Select.Option>
 						))}
 					</Select>
 				</Form.Item>
@@ -96,7 +96,7 @@ const UserForm = (props) => {
 					</Select>
 				</Form.Item>
 				{checkRoomType()}
-				<Form.Item label='Date' required={true}>
+				<Form.Item label='Contact' required={true}>
 					<PhoneInput
 						placeholder='Enter phone number'
 						value={value}

@@ -4,6 +4,7 @@ import Header from './header';
 import Footer from './footer';
 import 'bootstrap/dist/css/bootstrap.css';
 import { Redirect } from 'react-router-dom';
+import SpinnerPage from './spinner';
 
 import 'antd/dist/antd.css';
 import '../App.css';
@@ -32,7 +33,7 @@ const Rooms = () => {
 		dispatch(fetchData());
 	}, []);
 	const list = useSelector((state) => state.data);
-	const { datalist } = list;
+	const { datalist, loading, error } = list;
 
 	let types = getUnique(datalist, 'hostel_type');
 	types = ['all', ...types];
@@ -98,6 +99,17 @@ const Rooms = () => {
 		}
 	});
 
+	const spin = () => {
+		if (loading || error) {
+			return (
+				<div className='d-flex justify-content-lg-around'>
+					{' '}
+					<SpinnerPage />
+				</div>
+			);
+		}
+	};
+
 	if (localStorage.getItem('token') === null) {
 		return <Redirect to='/' />;
 	}
@@ -140,8 +152,8 @@ const Rooms = () => {
 								name='price'
 								value={price}
 								onChange={pri}>
-								{Price.map((data) => (
-									<option key={data}>{data}</option>
+								{Price.map((data, key) => (
+									<option key={key}>{data}</option>
 								))}
 							</select>
 						</div>
@@ -155,8 +167,8 @@ const Rooms = () => {
 								name='distance'
 								value={distance}
 								onChange={dis}>
-								{Distance.map((data) => (
-									<option key={data}>{data}</option>
+								{Distance.map((data, key) => (
+									<option key={key}>{data}</option>
 								))}
 							</select>
 						</div>
@@ -170,8 +182,8 @@ const Rooms = () => {
 								name='type'
 								value={hostelType}
 								onChange={hostel_Type}>
-								{types.map((data) => (
-									<option key={data}>{data}</option>
+								{types.map((data, key) => (
+									<option key={key}>{data}</option>
 								))}
 							</select>
 						</div>
@@ -179,6 +191,7 @@ const Rooms = () => {
 				</div>
 
 				<div className='container-fluid pt-3 m-auto'>
+					{spin()}
 					<MDBRow>{filtered}</MDBRow>
 				</div>
 				<Footer />

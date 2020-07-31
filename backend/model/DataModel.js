@@ -17,6 +17,9 @@ const Hostel = new mongoose.Schema({
   four_in_identity: {
     type: []
   },
+  bed: {
+    type: []
+  },
   description: String,
   distance: Number,
   hostel_type: String,

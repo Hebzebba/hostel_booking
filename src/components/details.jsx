@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Steps, Button, message } from 'antd';
+import Lightbox from 'react-image-lightbox';
+import 'react-image-lightbox/style.css';
 import {
 	UserOutlined,
 	SolutionOutlined,
@@ -33,6 +35,8 @@ const Details = (props) => {
 	const details = useSelector((state) => state.detailsData);
 	const dispatch = useDispatch();
 	const [current, setCurrent] = useState(0);
+	const [photoIndex, setphotoIndex] = useState(0);
+	const [isOpen, setisOpen] = useState(false);
 
 	const next = () => {
 		const cur = current + 1;
@@ -42,6 +46,30 @@ const Details = (props) => {
 	const prev = () => {
 		const cur = current - 1;
 		setCurrent(cur);
+	};
+
+	const renderImages = () => {
+		let photoIndex = -1;
+
+		return imagesrc.map((imageSrc) => {
+			photoIndex++;
+			const privateKey = photoIndex;
+			return (
+				<MDBCol md='1' className='p-0 mt-2' key={photoIndex}>
+					<MDBCard>
+						<img
+							src={imageSrc}
+							alt='Gallery'
+							className='img-fluid'
+							onClick={() => {
+								setphotoIndex(privateKey);
+								setisOpen(true);
+							}}
+						/>
+					</MDBCard>
+				</MDBCol>
+			);
+		});
 	};
 
 	useEffect(() => {
@@ -156,13 +184,30 @@ const Details = (props) => {
 						</MDBCol>
 						<MDBContainer>
 							<MDBRow>
-								{imagesrc.map((img) => (
-									<MDBCol md='1' className='p-0 mt-2' key={img} key={img}>
-										<MDBCard>
-											<MDBCardImage className='img-fluid' src={img} />
-										</MDBCard>
-									</MDBCol>
-								))}
+								{renderImages()}
+
+								<div>
+									{isOpen && (
+										<Lightbox
+											mainSrc={imagesrc[photoIndex]}
+											nextSrc={imagesrc[(photoIndex + 1) % imagesrc.length]}
+											prevSrc={
+												imagesrc[
+													(photoIndex + imagesrc.length - 1) % imagesrc.length
+												]
+											}
+											onCloseRequest={() => setisOpen(false)}
+											onMovePrevRequest={() =>
+												setphotoIndex(
+													(photoIndex + imagesrc.length - 1) % imagesrc.length
+												)
+											}
+											onMoveNextRequest={() =>
+												setphotoIndex((photoIndex + 1) % imagesrc.length)
+											}
+										/>
+									)}
+								</div>
 							</MDBRow>
 						</MDBContainer>
 					</MDBRow>

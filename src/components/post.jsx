@@ -2,29 +2,12 @@ import React, { Component } from 'react';
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBFileInput } from 'mdbreact';
 import { addData } from '../store/actions/actions';
 import { connect } from 'react-redux';
-import { Form, Input, Button } from 'antd';
-import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
-const layout = {
-	labelCol: { span: 8 },
-	wrapperCol: { span: 16 },
-};
-
-const formItemLayout = {
-	labelCol: {
-		xs: { span: 24 },
-		sm: { span: 4 },
-	},
-	wrapperCol: {
-		xs: { span: 24 },
-		sm: { span: 20 },
-	},
-};
-const formItemLayoutWithOutLabel = {
-	wrapperCol: {
-		xs: { span: 24, offset: 0 },
-		sm: { span: 20, offset: 4 },
-	},
-};
+import { Form, Input, Button, Upload, message } from 'antd';
+import {
+	MinusCircleOutlined,
+	PlusOutlined,
+	UploadOutlined,
+} from '@ant-design/icons';
 
 class Post extends Component {
 	constructor(props) {
@@ -32,95 +15,88 @@ class Post extends Component {
 		this.state = {
 			hostel_name: '',
 			price: 0,
-			room_capacity: 0,
 			description: '',
 			distance: 0,
 			hostel_type: '',
-			// hostel_image: [{ filename: '23.jpg' }],
+			hostel_image: null,
 			map_area: '',
 		};
 	}
 
-	handleChange = (event) => {
-		this.setState({ [event.target.name]: event.target.value });
-	};
+	// handleChange = (event) => {
+	// 	this.setState({ [event.target.name]: event.target.value });
+	// };
 
 	fileSelectedHandler = (e) => {
 		this.setState({
-			[e.target.name]: [...this.state.hostel_image, ...e.target.files],
+			hostel_image: e.target.files,
 		});
+		console.log(e.target.files);
+		// console.log(e);
 	};
 
 	handleSubmit = (event) => {
+		const fd = new FormData();
+		fd.append('hostel_image', this.state.hostel_image);
 		event.preventDefault();
 		this.props.dispatch(
-			addData(
-				this.state.hostel_name,
-				this.state.price,
-				this.state.room_capacity,
-				this.state.description,
-				this.state.distance,
-				this.state.hostel_type,
-				this.state.hostel_image,
-				this.state.map_area
-			)
+			addData(fd)
+			// this.state.hostel_name,
+			// this.state.price,
+			// [],
+			// [],
+			// '',
+			// this.state.description,
+			// this.state.distance,
+			// this.state.hostel_type,
+
+			// this.state.map_area
 		);
 	};
-
-	DynamicFieldSet = () => {};
-	onFinish = (values) => {
-		console.log('Received values of form:', values);
-		console.log('Received values of form:', this.state.hostel_name);
+	upload = (e) => {
+		const fd = new FormData();
+		fd.append('hostel_image', this.state.hostel_image);
+		this.props.dispatch(addData(fd));
 	};
+
+	// onFinish = (values) => {
+	// 	// console.log('Received values of form:', values);
+	// 	// console.log('Received values of form:', this.state.hostel_name);
+
+	// 	let file = new Blob([JSON.stringify({})], { type: 'application/json' });
+
+	// 	const fd = new FormData();
+	// 	fd.append('hostel_image', this.state.hostel_image);
+
+	// 	// this.state.hostel_image.forEach((file) => {
+	// 	// 	fd.append('hostel_image[]', file.image, file.name);
+	// 	// });
+
+	// 	// fd.append('hostel_image', JSON.stringify(this.state.hostel_image));
+
+	// 	this.props.dispatch(
+	// 		addData(
+	// 			this.state.hostel_name,
+	// 			this.state.price,
+	// 			[],
+	// 			[],
+	// 			[],
+	// 			this.state.description,
+	// 			this.state.distance,
+	// 			this.state.hostel_type,
+	// 			fd,
+	// 			this.state.map_area
+	// 		)
+	// 	);
+	// };
 	render() {
+		console.log(this.state.hostel_image);
+
 		return (
 			<>
 				<MDBContainer>
 					<MDBRow>
 						<MDBCol md='6'>
-							{/* <form method='Post' onSubmit={this.handleSubmit}> */}
-							{/* <p className='h4 text-center mb-1'>Post Data</p>
-								<label
-									htmlFor='defaultFormRegisterNameEx'
-									className='grey-text'>
-									Hostel Name
-								</label>
-								<input
-									type='text'
-									id='defaultFormRegisterNameEx'
-									className='form-control'
-									value={this.state.hostel_name}
-									onChange={this.handleChange}
-									name='hostel_name'
-								/>
-								<label
-									htmlFor='defaultFormRegisterEmailEx'
-									className='grey-text'>
-									Price
-								</label>
-								<input
-									type='number'
-									id='defaultFormRegisterEmailEx'
-									className='form-control'
-									value={this.state.price}
-									onChange={this.handleChange}
-									name='price'
-								/> */}
-
-							{/* <label
-									htmlFor='defaultFormRegisterConfirmEx'
-									className='grey-text'>
-									Room Capacity
-								</label>
-								<input
-									type='number'
-									id='defaultFormRegisterConfirmEx'
-									className='form-control'
-									value={this.state.room_capacity}
-									onChange={this.handleChange}
-									name='room_capacity'
-								/> */}
-
 							<Form
 								name='dynamic_form_item'
 								{...formItemLayoutWithOutLabel}
@@ -178,7 +154,7 @@ class Post extends Component {
 														{...(index === 0
 															? formItemLayout
 															: formItemLayoutWithOutLabel)}
-														label={index === 0 ? 'Passengers' : ''}
+														label={index === 0 ? 'Room Number' : ''}
 														required={false}
 														key={field.key}>
 														<Form.Item
@@ -188,13 +164,12 @@ class Post extends Component {
 																{
 																	required: true,
 																	whitespace: true,
-																	message:
-																		"Please input passenger's name or delete this field.",
+																	message: 'Please input Room Number.',
 																},
 															]}
 															noStyle>
 															<Input
-																placeholder='passenger name'
+																placeholder='room number'
 																style={{ width: '60%' }}
 															/>
 														</Form.Item>
@@ -235,7 +210,7 @@ class Post extends Component {
 														{...(index === 0
 															? formItemLayout
 															: formItemLayoutWithOutLabel)}
-														label={index === 0 ? 'Passengers' : ''}
+														label={index === 0 ? 'Room Number' : ''}
 														required={false}
 														key={field.key}>
 														<Form.Item
@@ -245,13 +220,12 @@ class Post extends Component {
 																{
 																	required: true,
 																	whitespace: true,
-																	message:
-																		"Please input passenger's name or delete this field.",
+																	message: 'Please input Room Number.',
 																},
 															]}
 															noStyle>
 															<Input
-																placeholder='passenger name'
+																placeholder='room number'
 																style={{ width: '60%' }}
 															/>
 														</Form.Item>
@@ -333,7 +307,7 @@ class Post extends Component {
 									</select>
 								</div>
 
-								<label
+								{/* <label
 									htmlFor='defaultFormRegisterConfirmEx'
 									className='grey-text'>
 									Hostel Image
@@ -343,10 +317,17 @@ class Post extends Component {
 										type='file'
 										multiple
 										name='hostel_image'
-										accept='images/.jpg, .jpeg, .png'
+										accept='images/*'
+										method='Post'
 										onChange={this.fileSelectedHandler}
 									/>
-								</div>
+								</div> */}
+								<br />
+								<Upload {...props}>
+									<Button>
+										<UploadOutlined /> Click to Upload
+									</Button>
+								</Upload>
 
 								<label
 									htmlFor='defaultFormRegisterConfirmEx'
@@ -367,21 +348,68 @@ class Post extends Component {
 										Post
 									</MDBBtn>
 								</div>
-
-								{/* <Form.Item>
-									<Button type='primary' htmlType='submit'>
-										Submit
-									</Button>
-								</Form.Item> */}
 							</Form>
-
-							{/* </form> */}
 						</MDBCol>
 					</MDBRow>
 				</MDBContainer>
+
+				{/* <form
+					action='http://localhost:5000/add'
+					method='post'
+					encType='multipart/form-data'
+					onSubmit={this.handleSubmit}>
+					<input
+						type='file'
+						name='hostel_image'
+						multiple
+						onChange={this.fileSelectedHandler}
+					/>
+					<input type='submit' />
+				</form> */}
 			</>
 		);
 	}
 }
+
+const layout = {
+	labelCol: { span: 10 },
+	wrapperCol: { span: 18 },
+};
+
+const formItemLayout = {
+	labelCol: {
+		xs: { span: 24 },
+		sm: { span: 10 },
+	},
+	wrapperCol: {
+		xs: { span: 24 },
+		sm: { span: 20 },
+	},
+};
+const formItemLayoutWithOutLabel = {
+	wrapperCol: {
+		xs: { span: 24, offset: 0 },
+		sm: { span: 20, offset: 10 },
+	},
+};
+
+const props = {
+	name: 'file',
+	action: 'http://localhost:5000/add',
+	headers: {
+		// authorization: 'authorization-text',
+		'Content-Type': 'multipart/form-data',
+	},
+	onChange(info) {
+		if (info.file.status !== 'uploading') {
+			console.log(info.file, info.fileList);
+		}
+		if (info.file.status === 'done') {
+			message.success(`${info.file.name} file uploaded successfully`);
+		} else if (info.file.status === 'error') {
+			message.error(`${info.file.name} file upload failed.`);
+		}
+	},
+};
 
 export default connect()(Post);

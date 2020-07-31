@@ -20,6 +20,12 @@ const User = new mongoose.Schema({
   room_code: {
     type: String,
   },
+  bed: {
+    type: String
+  },
+  hostel_type: {
+    type: String
+  },
   tel_number: {
     type: String
   },

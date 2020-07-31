@@ -61,10 +61,24 @@ export const postFail = () => ({
   type: actionTpes.POST_DATA_FAIL,
 });
 
+let headers = {
+  'Content-Type': "multipart/form-data; charset=utf-8; boundary=" + Math.random().toString().substr(2)
+};
+
+// let headers = {
+//   'Content-Type': 'multipart/form-data; charset=utf-8;'
+// };
+
+let formData = new FormData();
+
+
+let fd = new FormData();
 export const addData = (
   hostel_name,
   price,
-  room_capacity,
+  one_in_identity,
+  four_in_identity,
+  bed,
   description,
   distance,
   hostel_type,
@@ -76,12 +90,16 @@ export const addData = (
   axios.post("http://localhost:5000/add", {
       hostel_name: hostel_name,
       price: price,
-      room_capacity: room_capacity,
+      one_in_identity: one_in_identity,
+      four_in_identity: four_in_identity,
+      bed: bed,
       description: description,
       distance: distance,
-      hostel_type: hostel_image,
-      hostel_image: hostel_image,
+      hostel_type: hostel_type,
+      hostel_image: formData.append('hostel_image', hostel_image),
       map_area: map_area
+    }, {
+      headers: headers
     })
     .then(result => dispatch(postSucces()))
     .catch(err => dispatch(postFail()))
@@ -113,6 +131,7 @@ export const studentLogin = (index_number, password) => dispatch => {
     .then(res => {
       dispatch(authSuccess(res.data));
       localStorage.setItem('token', res.data.token);
+      localStorage.setItem('user', res.data.fullname)
     })
     .catch(err => dispatch(authFail))
 };

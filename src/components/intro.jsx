@@ -32,7 +32,6 @@ class ClassicFormPage extends React.Component {
 	};
 
 	handleSubmit = (e) => {
-		e.preventDefault();
 		this.props.dispatch(
 			studentLogin(this.state.indexNumber, this.state.password)
 		);

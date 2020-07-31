@@ -23,6 +23,7 @@ class NavigationBar extends Component {
 
 	logout = () => {
 		localStorage.removeItem('token');
+		localStorage.removeItem('user');
 	};
 
 	render() {
@@ -46,12 +47,16 @@ class NavigationBar extends Component {
 					</MDBNavbarNav>
 					<MDBNavbarNav right>
 						<MDBNavItem>
-							<MDBIcon icon='user' />
-							<a>
-								<MDBBtn color='secondary' onClick={this.logout}>
+							<form>
+								<span>
+									Welcome{' '}
+									<b className='text-light'>{localStorage.getItem('user')}</b>
+								</span>
+								<MDBBtn color='danger' onClick={this.logout} type='submit'>
 									Logout
 								</MDBBtn>
-							</a>
+								<MDBIcon icon='user' className='text-light' />
+							</form>
 						</MDBNavItem>
 					</MDBNavbarNav>
 				</MDBCollapse>
