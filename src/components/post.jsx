@@ -1,21 +1,25 @@
 import React, { Component } from 'react';
-import { Form, Button, Input, InputNumber,Select } from 'antd'
-import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import { Form, Button, Input, InputNumber,Select,Upload } from 'antd'
+import { MinusCircleOutlined, PlusOutlined,UploadOutlined } from '@ant-design/icons';
 class Post extends Component {
 	state = {  }
+
+	handleSubmit = (e) => { 
+		console.log(e)
+	}
 	render() { 
 		return ( 
 <div className="container d-block justify-content-center">
 				<div style={{ width: "50%", padding: "20px", margin: "auto", height: "80vh", overflowY: "auto" }}>
 					<center><h2>Post Content</h2></center>
-<Form>
-	<Form.Item >
+<Form onFinish={this.handleSubmit}>
+	<Form.Item name="hostelName">
 	<Input  placeholder="Hostel Name"/>
 	</Form.Item>
 	<Form.Item >
 	<InputNumber style={{width:"100%"}} placeholder="price" type="number"/>
 	</Form.Item>
-	<Form.List name="roomNumber">
+	<Form.List name="roomNumber1">
 	{(fields, { add, remove }) => {
 	return (
 		<div>
@@ -32,7 +36,7 @@ class Post extends Component {
 	{
 	required: true,
 	whitespace: true,
-	message: "Please input passenger's nadelete this field.",
+	message: "Please input room number",
 	},
 	]}
 	noStyle
@@ -62,7 +66,7 @@ class Post extends Component {
       </Form.List>
 
 						
-	<Form.List name="roomNumber">
+	<Form.List name="roomNumber2">
 	{(fields, { add, remove }) => {
 	return (
 		<div>
@@ -79,7 +83,7 @@ class Post extends Component {
 	{
 	required: true,
 	whitespace: true,
-	message: "Please input passenger's nadelete this field.",
+	message: "Please input room number",
 	},
 	]}
 	noStyle
@@ -108,29 +112,41 @@ class Post extends Component {
 <PlusOutlined /> Add field</Button></Form.Item></div>);}}
       </Form.List>
 
-	<Form.Item>
+	<Form.Item name="description">
 <Input.TextArea placeholder="Description"  rows={10}/>				
 </Form.Item>
 						
-<Form.Item >
+<Form.Item name="distance">
 	<InputNumber style={{width:"100%"}} placeholder="Distance" type="number"/>
-		</Form.Item>				
+</Form.Item>	
+
+<Form.Item required={true} name="merchant_id">
+	<InputNumber style={{width:"100%"}} placeholder="Merchant ID" type="number"/>
+		</Form.Item>							
 	<Form.Item>
-<Form.Item>
+<Form.Item name="hostel_type">
+	
 	<Select placeholder="Select hostel type">
 		<Select.Option value="Mixed">Mixed</Select.Option>							
 		<Select.Option value="Males">Males</Select.Option>							
 		<Select.Option value="Females">Females</Select.Option>							
 	</Select>							
 	</Form.Item>
-		<Form.Item >
+		<Form.Item name="hostel_map">
 	<Input  placeholder="Hostel Map"/>
 	</Form.Item>
-	<div className="mb-4">
+	{/* <div className="mb-4">
 	<input type="file" multiple />						
-	</div>
-        <Button type="primary" htmlType="submit">
-          Submit
+	</div> */}
+		<Form.Item>
+	<Upload {...props} multiple name="hostel_image">
+    <Button>
+      <UploadOutlined /> Upload
+    </Button>
+  </Upload>,					
+		</Form.Item>
+        <Button type="primary" htmlType="submit" size="middle">
+          Post
         </Button>
       </Form.Item>
 				</Form>
@@ -140,4 +156,16 @@ class Post extends Component {
 	}
 }
  
+const props = {
+  action: 'http://localhost:5000/add',
+  onChange({ file, fileList }) {
+    if (file.status !== 'uploading') {
+      console.log(file, fileList);
+    }
+  },
+	defaultFileList: [
+	  
+  ],
+};
+
 export default Post;

@@ -20,6 +20,7 @@ import {
 	MDBContainer,
 } from 'mdbreact';
 import Payment from './payments';
+import Last from './last'
 
 import Header from './header';
 import UserForm from './userForm';
@@ -101,7 +102,7 @@ const Details = (props) => {
 		},
 		{
 			title: 'Last',
-			content: 'Last-content',
+			content: <Last />,
 			icon: <LoadingOutlined />,
 		},
 	];
