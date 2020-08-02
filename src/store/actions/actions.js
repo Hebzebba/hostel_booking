@@ -62,47 +62,34 @@ export const postFail = () => ({
 });
 
 let headers = {
-  'Content-Type': "multipart/form-data; charset=utf-8; boundary=" + Math.random().toString().substr(2)
+  'Content-Type': "multipart/form-data;"
 };
 
-// let headers = {
-//   'Content-Type': 'multipart/form-data; charset=utf-8;'
-// };
-
-let formData = new FormData();
-
-
-let fd = new FormData();
 export const addData = (
   hostel_name,
   price,
   one_in_identity,
   four_in_identity,
-  bed,
   description,
   distance,
   hostel_type,
   hostel_image,
   map_area
-) => dispatch => {
+) =>dispatch=> { 
   dispatch(postStart());
-
-  axios.post("http://localhost:5000/add", {
-      hostel_name: hostel_name,
-      price: price,
-      one_in_identity: one_in_identity,
-      four_in_identity: four_in_identity,
-      bed: bed,
-      description: description,
-      distance: distance,
-      hostel_type: hostel_type,
-      hostel_image: formData.append('hostel_image', hostel_image),
-      map_area: map_area
-    }, {
-      headers: headers
-    })
-    .then(result => dispatch(postSucces()))
-    .catch(err => dispatch(postFail()))
+  axios.post("http://localhost:5000/add/", {
+    hostel_name: hostel_name,
+    price: price,
+    one_in_identity: one_in_identity,
+    four_in_identity: four_in_identity,
+    description: description,
+    distance: distance,
+    hostel_type: hostel_type,
+    hostel_image: hostel_image,
+    map_area:map_area
+  })
+    .then(res => dispatch(postSucces()))
+    .catch(err=>dispatch(postFail()))
 }
 
 

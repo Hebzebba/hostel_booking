@@ -1,25 +1,50 @@
 import React, { Component } from 'react';
 import { Form, Button, Input, InputNumber,Select,Upload } from 'antd'
-import { MinusCircleOutlined, PlusOutlined,UploadOutlined } from '@ant-design/icons';
+import { MinusCircleOutlined, PlusOutlined, UploadOutlined } from '@ant-design/icons';
+import { addData } from '../store/actions/actions';
+import { connect } from "react-redux";
+import axios from "axios"
 class Post extends Component {
-	state = {  }
-
-	handleSubmit = (e) => { 
-		console.log(e)
+	state = { 
+		images: [],
+		props : {
+  		action: 'http://localhost:5000/upload',
 	}
+	 }
+
+	selectedFiles = ({ file, fileList }) => { 
+	if (file.status !== 'uploading') {
+		// console.log(file);
+    }
+		this.setState({ images: [...fileList] });
+	}
+
+	
+
+	handleSubmit = (event) => {
+		console.log(event)
+		const imageNames = this.state.images.map(name => name.name);
+		const {hostel_name,price,one_in_identity,four_in_identity, description,distance,hostel_type,map_area} = event
+		this.props.dispatch(addData(hostel_name,price,one_in_identity,four_in_identity,description,distance,hostel_type,imageNames,map_area));
+	}
+
+
+
 	render() { 
+	
+	
 		return ( 
 <div className="container d-block justify-content-center">
 				<div style={{ width: "50%", padding: "20px", margin: "auto", height: "80vh", overflowY: "auto" }}>
 					<center><h2>Post Content</h2></center>
-<Form onFinish={this.handleSubmit}>
-	<Form.Item name="hostelName">
+<Form onFinish={this.handleSubmit} >
+	<Form.Item name="hostel_name">
 	<Input  placeholder="Hostel Name"/>
 	</Form.Item>
-	<Form.Item >
+	<Form.Item name="price">
 	<InputNumber style={{width:"100%"}} placeholder="price" type="number"/>
 	</Form.Item>
-	<Form.List name="roomNumber1">
+	<Form.List name="one_in_identity">
 	{(fields, { add, remove }) => {
 	return (
 		<div>
@@ -66,7 +91,7 @@ class Post extends Component {
       </Form.List>
 
 						
-	<Form.List name="roomNumber2">
+	<Form.List name="four_in_identity">
 	{(fields, { add, remove }) => {
 	return (
 		<div>
@@ -132,14 +157,14 @@ class Post extends Component {
 		<Select.Option value="Females">Females</Select.Option>							
 	</Select>							
 	</Form.Item>
-		<Form.Item name="hostel_map">
+		<Form.Item name="map_area">
 	<Input  placeholder="Hostel Map"/>
 	</Form.Item>
 	{/* <div className="mb-4">
-	<input type="file" multiple />						
+	<input type="file" multiple name="hostel_image" onChange={this.selectedFiles} action ='http://localhost:5000/add'/>						
 	</div> */}
 		<Form.Item>
-	<Upload {...props} multiple name="hostel_image">
+	<Upload {...this.state.props} multiple name="hostel_image" onChange={this.selectedFiles}>
     <Button>
       <UploadOutlined /> Upload
     </Button>
@@ -156,16 +181,6 @@ class Post extends Component {
 	}
 }
  
-const props = {
-  action: 'http://localhost:5000/add',
-  onChange({ file, fileList }) {
-    if (file.status !== 'uploading') {
-      console.log(file, fileList);
-    }
-  },
-	defaultFileList: [
-	  
-  ],
-};
 
-export default Post;
+
+export default connect()(Post);

@@ -40,32 +40,35 @@ router.route('/datalist').get((req, res) => {
     .catch((error) => console.log('error'));
 });
 
+
+
+router.route('/upload').post(upload.array('hostel_image'), (req, res) => { 
+  res.status(201).json({
+    msg:"Upload successful"
+  })
+})
+
 router.route('/add').post(upload.array('hostel_image'), (req, res) => {
   const url = `${req.protocol}`;
   const host = 'localhost';
   const port = 5000;
 
-  console.log(req.files);
 
   const Hostel = new hostel({
     hostel_name: req.body.hostel_name,
     price: req.body.price,
-    one_in_a_room: req.body.one_in_a_room,
     one_in_identity: req.body.one_in_identity,
-    four_in_a_room: req.body.four_in_a_room,
     four_in_identity: req.body.four_in_identity,
     description: req.body.description,
     distance: req.body.distance,
     hostel_type: req.body.hostel_type,
-    hostel_image: req.files.map(
-      (file) => `${url}://${host}:${port}/images/${file.filename}`
-    ),
+    hostel_image: req.body.hostel_image.map(name=>(`${url}://${host}:${port}/images/${name}`)),
     map_area: req.body.map_area,
   });
   Hostel.save()
     .then((result) => {})
     .catch((err) => {
-      console.log('Error');
+      console.log(err);
     });
   res.status(201).json({
     message: 'Handling post request',
