@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Input, Select, DatePicker } from 'antd';
 import 'react-phone-number-input/style.css';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import PhoneInput from 'react-phone-number-input';
 
 const UserForm = (props) => {
+	const dispatch = useDispatch();
 	const [componentSize, setComponentSize] = useState('');
 
 	const [roomType, setroomType] = useState('');
@@ -21,7 +22,7 @@ const UserForm = (props) => {
 	const checkRoomType = () => {
 		if (roomType === '1 in a room') {
 			return (
-				<Form.Item label=' Room Number'>
+				<Form.Item label=' Room Number' name='room_code'>
 					<Select>
 						{props.hostelName[0].map((data, key) => (
 							<Select.Option key={key}>{data}</Select.Option>
@@ -31,13 +32,21 @@ const UserForm = (props) => {
 			);
 		} else if (roomType === '4 in a room') {
 			return (
-				<Form.Item label='Room Number'>
-					<Select>
-						{props.hostelName[1].map((data, key) => (
-							<Select.Option key={key}>{data}</Select.Option>
-						))}
-					</Select>
-				</Form.Item>
+				<div>
+					<Form.Item label='Room Number' name='room_code'>
+						<Select>
+							{props.hostelName[1].map((data, key) => (
+								<Select.Option key={key}>{data}</Select.Option>
+							))}
+						</Select>
+					</Form.Item>
+					<Form.Item label='Bunk bed' name='bed'>
+						<Select name='bed'>
+							<Select.Option value='Top Bed'>Top Bed</Select.Option>
+							<Select.Option value='Down Bed'>Down Bed</Select.Option>
+						</Select>
+					</Form.Item>
+				</div>
 			);
 		} else {
 			return;
@@ -60,17 +69,17 @@ const UserForm = (props) => {
 				onValuesChange={onFormLayoutChange}
 				size={componentSize}
 				className='pt-3'>
-				<Form.Item label='Full name' required={true}>
+				<Form.Item label='Full name' required={true} name='full_name'>
 					<Input type='text' required={true} />
 				</Form.Item>
-				<Form.Item label='Gender' required={true}>
+				<Form.Item label='Gender' required={true} name='gender'>
 					<Select required={true}>
 						<Select.Option value='male'>Male</Select.Option>
 						<Select.Option value='female'>Female</Select.Option>
 					</Select>
 				</Form.Item>
 
-				<Form.Item label='Level' required={true}>
+				<Form.Item label='Level' required={true} name='level'>
 					<Select required={true}>
 						<Select.Option value='level 100'>level 100</Select.Option>
 						<Select.Option value='level 200'>level 200</Select.Option>
@@ -78,7 +87,7 @@ const UserForm = (props) => {
 					</Select>
 				</Form.Item>
 
-				<Form.Item label='Room Type' required={true}>
+				<Form.Item label='Room Type' required={true} name='room_type'>
 					<Select
 						required={true}
 						value={roomType}
@@ -96,7 +105,7 @@ const UserForm = (props) => {
 					</Select>
 				</Form.Item>
 				{checkRoomType()}
-				<Form.Item label='Contact' required={true}>
+				<Form.Item label='Contact' required={true} name='tel_number'>
 					<PhoneInput
 						placeholder='Enter phone number'
 						value={value}
@@ -104,7 +113,7 @@ const UserForm = (props) => {
 					/>
 				</Form.Item>
 
-				<Form.Item label='Date' required={true}>
+				<Form.Item label='Date' required={true} name='date'>
 					<DatePicker />
 				</Form.Item>
 			</Form>

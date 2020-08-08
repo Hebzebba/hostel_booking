@@ -3,7 +3,7 @@ import { Form, Button, Input, InputNumber,Select,Upload } from 'antd'
 import { MinusCircleOutlined, PlusOutlined, UploadOutlined } from '@ant-design/icons';
 import { addData } from '../store/actions/actions';
 import { connect } from "react-redux";
-import axios from "axios"
+
 class Post extends Component {
 	state = { 
 		images: [],
@@ -14,7 +14,6 @@ class Post extends Component {
 
 	selectedFiles = ({ file, fileList }) => { 
 	if (file.status !== 'uploading') {
-		// console.log(file);
     }
 		this.setState({ images: [...fileList] });
 	}
@@ -22,10 +21,13 @@ class Post extends Component {
 	
 
 	handleSubmit = (event) => {
-		console.log(event)
 		const imageNames = this.state.images.map(name => name.name);
-		const {hostel_name,price,one_in_identity,four_in_identity, description,distance,hostel_type,map_area} = event
-		this.props.dispatch(addData(hostel_name,price,one_in_identity,four_in_identity,description,distance,hostel_type,imageNames,map_area));
+		
+		const { hostel_name, price, one_in_identity, four_in_identity, description, distance, merchant_id, hostel_type, map_area } = event
+		
+
+
+		this.props.dispatch(addData(hostel_name,price,one_in_identity,four_in_identity,description,distance,merchant_id,hostel_type,imageNames,map_area));
 	}
 
 
@@ -160,9 +162,6 @@ class Post extends Component {
 		<Form.Item name="map_area">
 	<Input  placeholder="Hostel Map"/>
 	</Form.Item>
-	{/* <div className="mb-4">
-	<input type="file" multiple name="hostel_image" onChange={this.selectedFiles} action ='http://localhost:5000/add'/>						
-	</div> */}
 		<Form.Item>
 	<Upload {...this.state.props} multiple name="hostel_image" onChange={this.selectedFiles}>
     <Button>
