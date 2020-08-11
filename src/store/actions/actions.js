@@ -114,7 +114,7 @@ export const booking = (
 	gender,
 	level,
 	room_type,
-	room_code,
+	room_number,
 	bed,
 	hostel_type,
 	tel_number,
@@ -127,14 +127,14 @@ export const booking = (
 			gender: gender,
 			level: level,
 			room_type: room_type,
-			room_code: room_code,
+			room_code: room_number,
 			bed: bed,
 			hostel_type: hostel_type,
 			tel_number: tel_number,
 			date: date,
 		})
-		.then(dispatch(postSucces()))
-		.catch(dispatch(postFail()));
+		.then(dispatch(bookSucces()))
+		.catch(dispatch(bookFail()));
 };
 
 // Authentication

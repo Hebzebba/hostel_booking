@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Input, Select, DatePicker } from 'antd';
+import { Form, Input, Select, DatePicker, Button } from 'antd';
 import 'react-phone-number-input/style.css';
 import { useDispatch } from 'react-redux';
 import PhoneInput from 'react-phone-number-input';
+import { booking } from '../store/actions/actions';
 
 const UserForm = (props) => {
 	const dispatch = useDispatch();
@@ -10,6 +11,8 @@ const UserForm = (props) => {
 
 	const [roomType, setroomType] = useState('');
 	const [value, setValue] = useState();
+	const [room_number, setRoom_number] = useState('');
+	const [bed, setBed] = useState('');
 
 	const onFormLayoutChange = ({ size }) => {
 		setComponentSize(size);
@@ -19,13 +22,22 @@ const UserForm = (props) => {
 		setroomType(value);
 	};
 
+	const handleBed = (e) => {
+		setBed(e);
+	};
+	const handleRoomNumber = (e) => {
+		setRoom_number(e);
+	};
+
 	const checkRoomType = () => {
 		if (roomType === '1 in a room') {
 			return (
-				<Form.Item label=' Room Number' name='room_code'>
-					<Select>
+				<Form.Item label=' Room Number' name='room_number'>
+					<Select onChange={handleRoomNumber}>
 						{props.hostelName[0].map((data, key) => (
-							<Select.Option key={key}>{data}</Select.Option>
+							<Select.Option key={key} value={data}>
+								{data}
+							</Select.Option>
 						))}
 					</Select>
 				</Form.Item>
@@ -33,15 +45,17 @@ const UserForm = (props) => {
 		} else if (roomType === '4 in a room') {
 			return (
 				<div>
-					<Form.Item label='Room Number' name='room_code'>
-						<Select>
+					<Form.Item label='Room Number' name='room_number'>
+						<Select onChange={handleRoomNumber}>
 							{props.hostelName[1].map((data, key) => (
-								<Select.Option key={key}>{data}</Select.Option>
+								<Select.Option key={key} value={data}>
+									{data}
+								</Select.Option>
 							))}
 						</Select>
 					</Form.Item>
 					<Form.Item label='Bunk bed' name='bed'>
-						<Select name='bed'>
+						<Select name='bed' value={bed} onChange={handleBed}>
 							<Select.Option value='Top Bed'>Top Bed</Select.Option>
 							<Select.Option value='Down Bed'>Down Bed</Select.Option>
 						</Select>
@@ -51,6 +65,33 @@ const UserForm = (props) => {
 		} else {
 			return;
 		}
+	};
+
+	const handleSubmit = (value) => {
+		const {
+			full_name,
+			gender,
+			level,
+			room_type,
+			hostel_type,
+			tel_number,
+			date,
+		} = value;
+		// console.log(value);
+		// console.log(`${bed} ${room_number}`);
+		dispatch(
+			booking(
+				full_name,
+				gender,
+				level,
+				room_type,
+				room_number,
+				bed,
+				hostel_type,
+				tel_number,
+				date
+			)
+		);
 	};
 
 	return (
@@ -68,7 +109,8 @@ const UserForm = (props) => {
 				}}
 				onValuesChange={onFormLayoutChange}
 				size={componentSize}
-				className='pt-3'>
+				className='pt-3'
+				onFinish={handleSubmit}>
 				<Form.Item label='Full name' required={true} name='full_name'>
 					<Input type='text' required={true} />
 				</Form.Item>
@@ -115,6 +157,11 @@ const UserForm = (props) => {
 
 				<Form.Item label='Date' required={true} name='date'>
 					<DatePicker />
+				</Form.Item>
+				<Form.Item>
+					<Button type='primary' htmlType='submit'>
+						Finish
+					</Button>
 				</Form.Item>
 			</Form>
 		</>

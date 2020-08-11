@@ -108,7 +108,7 @@ router.route('/booking').post((req, res) => {
 		gender: req.body.gender,
 		level: req.body.level,
 		room_type: req.body.room_type,
-		room_code: req.body.room_code,
+		room_code: req.body.room_number,
 		bed: req.body.bed,
 		hostel_type: req.body.hostel_type,
 		tel_number: req.body.tel_number,
