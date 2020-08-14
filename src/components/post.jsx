@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Button, Input, InputNumber,Select,Upload } from 'antd'
+import { Form, Button, Input, InputNumber,Select,Upload,message } from 'antd'
 import { MinusCircleOutlined, PlusOutlined, UploadOutlined } from '@ant-design/icons';
 import { addData } from '../store/actions/actions';
 import { connect } from "react-redux";
@@ -27,7 +27,8 @@ class Post extends Component {
 		
 
 
-		this.props.dispatch(addData(hostel_name,price,one_in_identity,four_in_identity,description,distance,merchant_id,hostel_type,imageNames,map_area));
+		this.props.dispatch(addData(hostel_name, price, one_in_identity, four_in_identity, description, distance, merchant_id, hostel_type, imageNames, map_area));
+		message.success("Post Successful")
 	}
 
 

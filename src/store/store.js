@@ -14,13 +14,15 @@ import {
 import {
   authReducer
 } from "./reducers/authReducer";
+import { BookReducer } from "./reducers/bookReducer";
 
 const initialState = {};
 const rootReducer = combineReducers({
   data: fetcDataReducer,
   detailsData: fetcDataDetailReducer,
   studentLogin: authReducer,
-  post: postDataReducer
+  post: postDataReducer,
+  book:BookReducer
 });
 const composeEnhancers =
   (typeof window !== "undefined" &&

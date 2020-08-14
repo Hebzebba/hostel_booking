@@ -17,3 +17,16 @@ export const AUTH_SUCCESS = 'AUTH_SUCCESS';
 export const AUTH_FAIL = 'AUTH_FAIL';
 export const STUDENT_LOGIN = 'STUDENT_LOGIN';
 export const ADMIN_LOGIN = 'ADMIN_LOGIN';
+
+
+// User booking data
+// export const FULL_NAME = "FULL_NAME";
+// export const GENDER = "GENDER";
+// export const LEVEL = "LEVEL";
+// export const ROOM_TYPE= "ROOM_TYPE";
+// export const ROOM_NUMBER = "ROOM_NUMBER";
+// export const BED = "BED";
+// export const PHONE_NUMBER = "PHONE_NUMBER";
+// export const DATE = "DATE";
+
+

@@ -73,6 +73,8 @@ const Details = (props) => {
 		});
 	};
 
+	
+
 	useEffect(() => {
 		dispatch(fetchDataDetail(props.match.params.id));
 	}, []);
