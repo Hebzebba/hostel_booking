@@ -123,6 +123,7 @@ export const bookFail = () => ({
 });
 
 export const booking = (
+	index_number,
 	full_name,
 	gender,
 	level,
@@ -133,9 +134,10 @@ export const booking = (
 	tel_number,
 	date
 ) => (dispatch) => {
-	dispatch(bookStart());
+	// dispatch(bookStart());
 	axios
 		.post('http://localhost:5000/booking', {
+			index_number:index_number,
 			full_name: full_name,
 			gender: gender,
 			level: level,
@@ -146,8 +148,11 @@ export const booking = (
 			tel_number: tel_number,
 			date: date,
 		})
-		.then(dispatch(bookSucces()))
-		.catch(dispatch(bookFail()));
+		.then(res => { 		
+			dispatch(bookSucces())	
+		}
+		)
+		.catch(err=>dispatch(bookFail()));
 };
 
 // Authentication
@@ -176,6 +181,7 @@ export const studentLogin = (index_number, password) => (dispatch) => {
 			dispatch(authSuccess(res.data));
 			localStorage.setItem('token', res.data.token);
 			localStorage.setItem('user', res.data.fullname);
+			localStorage.setItem('indexNumber', res.data.index_number);
 		})
 		.catch((err) => dispatch(authFail()));
 };

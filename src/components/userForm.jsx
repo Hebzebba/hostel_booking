@@ -170,7 +170,7 @@ const UserForm = (props) => {
 				</Form.Item>
 
 				<Form.Item label='Level' required={true}>
-					<Select required={true} onChange={handleChangeLevel} defaultValue = "Select Gender">
+					<Select required={true} onChange={handleChangeLevel} defaultValue = "Select Level">
 						<Select.Option value='level 100'>level 100</Select.Option>
 						<Select.Option value='level 200'>level 200</Select.Option>
 						<Select.Option value='level 300'>level 300</Select.Option>

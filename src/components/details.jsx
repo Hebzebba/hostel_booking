@@ -100,8 +100,15 @@ const Details = (props) => {
 
 
 	const handleBooking = () => { 
-		props.dispatch(booking(props.full_name,props.gender,props.level,props.room_type,props.room_number,props.bed,details.hostel_type,props.phone_number,props.date))
-		message.success('Processing complete!')
+		props.dispatch(booking(localStorage.getItem('indexNumber'),props.full_name,props.gender,props.level,props.room_type,props.room_number,props.bed,details.hostel_type,props.phone_number,props.date))
+
+		if (props.bookFail) {
+			message.warning('User with that index already exist!')
+		}
+		else { 
+
+		  message.success('Process complete!')
+		}
 	}
 
 
@@ -126,7 +133,7 @@ const Details = (props) => {
 			icon: <LoadingOutlined />,
 		},
 	];
-
+	console.log(props.bookFail);
 	return (
 		<>
 			<div className='main-container'>
@@ -309,7 +316,8 @@ const mapStateToProps = state => ({
 	room_number : state.book.room_number,
 	bed : state.book.bed,
 	phone_number : state.book.phone_number,
-	date : state.book.date,
+	date: state.book.date,
+	bookFail:state.book.bookFail,
 })
 
 export default connect(mapStateToProps)(Details);

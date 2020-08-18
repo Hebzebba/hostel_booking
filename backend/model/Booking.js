@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
 const User = new mongoose.Schema({
+  index_number: String,
   full_name: {
     type: String
   },
@@ -11,7 +12,6 @@ const User = new mongoose.Schema({
   },
   level: {
     type: String,
-    required: true
   },
   room_type: {
     type: String,

@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const hostel = require('../model/DataModel');
 const Admin = require('../model/adminData');
-const User = require('../model/Booking');
+const User = require('../model/booking');
 const Student = require('../model/students');
 
 const multer = require('multer');
@@ -9,8 +9,7 @@ var jwt = require('jsonwebtoken');
 
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
-const myPlaintextPassword = 's0//P4$$w0rD';
-const someOtherPlaintextPassword = 'not_bacon';
+
 
 const storage = multer.diskStorage({
 	destination: function (req, file, cb) {
@@ -28,7 +27,7 @@ const upload = multer({
 	},
 });
 
-// const upload = multer({ dest: "ImageUpload" });
+
 
 router.route('/datalist').get((req, res) => {
 	hostel
@@ -76,6 +75,40 @@ router.route('/add').post(upload.array('hostel_image'), (req, res) => {
 	});
 });
 
+// Student booking
+router.route('/booking').post((req, res) => {
+	const IndexNumber = req.body.index_number;
+	User.findOne({ index_number: IndexNumber })
+		.then(user => {
+			if (user) {
+				return res.status(409).json({
+					msg: "User already exist"
+				})
+			}
+			else { 
+				const user = new User({
+		index_number:req.body.index_number,
+		full_name: req.body.full_name,
+		gender: req.body.gender,
+		level: req.body.level,
+		room_type: req.body.room_type,
+		room_code: req.body.room_number,
+		bed: req.body.bed,
+		hostel_type: req.body.hostel_type,
+		tel_number: req.body.tel_number,
+		date: req.body.date,
+	});
+
+	user.save()
+		.then(result => { 
+			res.json(result)
+		}).catch(err=>console.log(err))
+			}
+		})
+
+	
+});
+
 router.route('/details/:id').get((req, res) => {
 	const id = req.params.id;
 	hostel
@@ -102,26 +135,7 @@ router.route('/delete/:id').delete((req, res) => {
 		.catch((err) => err);
 });
 
-// Student booking
-router.route('/booking').post((req, res) => {
-	const user = new User({
-		full_name: req.body.full_name,
-		gender: req.body.gender,
-		level: req.body.level,
-		room_type: req.body.room_type,
-		room_code: req.body.room_number,
-		bed: req.body.bed,
-		hostel_type: req.body.hostel_type,
-		tel_number: req.body.tel_number,
-		date: req.body.date,
-	});
 
-	user.save()
-		.then((response) => ({
-			msg: 'User booking sucessfully',
-		}))
-		.catch((err) => err);
-});
 
 // User Authentication
 
@@ -265,6 +279,7 @@ router.route('/studentlogin').post((req, res) => {
 						res.status(201).json({
 							token: token,
 							fullname: `${user[0].f_name} ${user[0].l_name}`,
+							index_number:user[0].index_number,
 						});
 					} else {
 						res.status(401).json({
