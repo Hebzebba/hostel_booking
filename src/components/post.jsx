@@ -3,6 +3,8 @@ import { Form, Button, Input, InputNumber,Select,Upload,message } from 'antd'
 import { MinusCircleOutlined, PlusOutlined, UploadOutlined } from '@ant-design/icons';
 import { addData } from '../store/actions/actions';
 import { connect } from "react-redux";
+import { Redirect } from 'react-router-dom';
+
 
 class Post extends Component {
 	state = { 
@@ -22,13 +24,11 @@ class Post extends Component {
 
 	handleSubmit = (event) => {
 		const imageNames = this.state.images.map(name => name.name);
-		
 		const { hostel_name, price, one_in_identity, four_in_identity, description, distance, merchant_id, hostel_type, map_area } = event
 		
-
-
 		this.props.dispatch(addData(hostel_name, price, one_in_identity, four_in_identity, description, distance, merchant_id, hostel_type, imageNames, map_area));
 		message.success("Post Successful")
+		this.props.history.push('http://localhost:3000/dashboard')
 	}
 
 

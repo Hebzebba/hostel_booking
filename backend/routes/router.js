@@ -58,6 +58,7 @@ router.route('/add').post(upload.array('hostel_image'), (req, res) => {
 		four_in_identity: req.body.four_in_identity,
 		description: req.body.description,
 		distance: req.body.distance,
+		merchant_id:req.body.merchant_id,
 		hostel_type: req.body.hostel_type,
 		hostel_image: req.body.hostel_image.map(
 			(name) => `${url}://${host}:${port}/images/${name}`
@@ -115,8 +116,7 @@ router.route('/booking').post((req, res) => {
 		date: req.body.date,
 	});
 
-	user
-		.save()
+	user.save()
 		.then((response) => ({
 			msg: 'User booking sucessfully',
 		}))

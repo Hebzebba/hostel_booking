@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Steps, Button, message } from 'antd';
+import { connect } from 'react-redux';
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
-import {
+import { booking } from '../store/actions/actions';
+import{
+
 	UserOutlined,
 	SolutionOutlined,
 	LoadingOutlined,
@@ -52,27 +55,34 @@ const Details = (props) => {
 	const renderImages = () => {
 		let photoIndex = -1;
 
-		return imagesrc.map((imageSrc) => {
-			photoIndex++;
-			const privateKey = photoIndex;
-			return (
-				<MDBCol md='1' className='p-0 mt-2' key={photoIndex}>
-					<MDBCard>
-						<img
-							src={imageSrc}
-							alt='Gallery'
-							className='img-fluid'
-							onClick={() => {
-								setphotoIndex(privateKey);
-								setisOpen(true);
-							}}
-						/>
-					</MDBCard>
-				</MDBCol>
-			);
-		});
+
+		if (imagesrc === null || imagesrc === undefined) {
+	console.log("Loading")
+		}
+		else
+			return imagesrc.map((imageSrc) => {
+				photoIndex++;
+				const privateKey = photoIndex;
+				return (
+					<MDBCol md='1' className='p-0 mt-2' key={photoIndex}>
+						<MDBCard>
+							<img
+								src={imageSrc}
+								alt='Gallery'
+								className='img-fluid'
+								onClick={() => {
+									setphotoIndex(privateKey);
+									setisOpen(true);
+								}}
+							/>
+						</MDBCard>
+					</MDBCol>
+				);
+			});
+		
 	};
 
+	
 	
 
 	useEffect(() => {
@@ -81,25 +91,33 @@ const Details = (props) => {
 
 	let imagesrc = [];
 
-	if (details.hostel_image === undefined) {
+	if (details.hostel_image === undefined || details.hostel_image === undefined) {
 		console.log('loading.....');
 	} else {
 		imagesrc = details.hostel_image;
 	}
+
+
+
+	const handleBooking = () => { 
+		props.dispatch(booking(props.full_name,props.gender,props.level,props.room_type,props.room_number,props.bed,details.hostel_type,props.phone_number,props.date))
+		message.success('Processing complete!')
+	}
+
 
 	const steps = [
 		{
 			title: 'Profile',
 			content: (
 				<UserForm
-					hostelName={[details.one_in_identity, details.four_in_identity]}
+					hostelName={[details.one_in_identity, details.four_in_identity]} 
 				/>
 			),
 			icon: <UserOutlined />,
 		},
 		{
 			title: 'Payment Process',
-			content: <Payment />,
+			content: <Payment merchant_id={ details.merchant_id }/>,
 			icon: <SolutionOutlined />,
 		},
 		{
@@ -243,7 +261,7 @@ const Details = (props) => {
 										{current === steps.length - 1 && (
 											<Button
 												type='primary'
-												onClick={() => message.success('Processing complete!')}>
+												onClick={handleBooking }>
 												Done
 											</Button>
 										)}
@@ -283,4 +301,15 @@ const Details = (props) => {
 	);
 };
 
-export default Details;
+const mapStateToProps = state => ({
+	full_name : state.book.full_name,
+	gender: state.book.gender,
+	level : state.book.level,
+	room_type : state.book.room_type,
+	room_number : state.book.room_number,
+	bed : state.book.bed,
+	phone_number : state.book.phone_number,
+	date : state.book.date,
+})
+
+export default connect(mapStateToProps)(Details);

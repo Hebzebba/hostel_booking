@@ -96,9 +96,22 @@ export const addData = (
 };
 
 // Book Data
-
-export const bookStart = () => ({
+const initialState = {
+    full_name: "",
+    gender: "",
+    level: "",
+    room_type: "",
+    room_number: "",
+    bed: "",
+    phone_number: "",
+    date:""
+    
+}
+export const bookStart = ( full_name,gender, level,room_type,room_number,bed,phone_number,date) => ({
 	type: actionTpes.BOOK_DATA_START,
+	payload: {
+		full_name,gender,level,room_type,room_number,bed,phone_number,date
+	}
 });
 
 export const bookSucces = () => ({
@@ -164,5 +177,5 @@ export const studentLogin = (index_number, password) => (dispatch) => {
 			localStorage.setItem('token', res.data.token);
 			localStorage.setItem('user', res.data.fullname);
 		})
-		.catch((err) => dispatch(authFail));
+		.catch((err) => dispatch(authFail()));
 };
