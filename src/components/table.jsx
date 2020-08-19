@@ -78,6 +78,7 @@ const TableData = (props) => {
 			},
 		],
 
+
 		rows: props.data.map(dat => ({
 			name: dat.full_name,
 			gender: dat.gender,

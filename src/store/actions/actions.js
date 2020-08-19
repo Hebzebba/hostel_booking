@@ -173,6 +173,12 @@ export const booking = (
 		)
 		.catch(err=>dispatch(bookFail()));
 };
+// delete data
+export const deleteHostel = (id) => {
+	axios.post(`http://localhost:5000/delete`,{id:id})
+		.then(re => re)
+		.catch(er => er)
+ }
 
 // Authentication
 

@@ -12,6 +12,8 @@ import {
 import TableData from "./table";
 import Post from "./post";
 import UpdateProfile from "./updateprofile";
+import EditHostels from "./editHostels";
+
 
 const { Header, Sider, Content } = Layout;
 
@@ -34,6 +36,11 @@ class Dashboard extends Component {
   post = () => {
     return this.setState({ conten: () => <Post /> });
   };
+
+ edit = () => {
+    return this.setState({ conten: () => <EditHostels /> });
+  };
+
   updateprofile = () => {
     return this.setState({ conten: () => <UpdateProfile /> });
   };
@@ -54,8 +61,16 @@ class Dashboard extends Component {
             >
               Post
             </Menu.Item>
-            <Menu.Item
+
+             <Menu.Item
               key="3"
+              icon={<VideoCameraOutlined />}
+              onClick={this.edit}
+            >
+              Edit
+            </Menu.Item>
+            <Menu.Item
+              key="4"
               icon={<UploadOutlined />}
               onClick={this.updateprofile}
             >

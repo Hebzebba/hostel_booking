@@ -131,8 +131,23 @@ router.route('/details/:id').get((req, res) => {
 		.catch((err) => err);
 });
 
-router.route('/delete/:id').delete((req, res) => {
-	const id = req.params.id;
+// router.route('/delete/:id').delete((req, res) => {
+// 	const id = req.params.id;
+// 	hostel
+// 		.deleteOne({
+// 			_id: id,
+// 		})
+// 		.exec()
+// 		.then((result) => {
+// 			res.send({
+// 				message: 'Data removed',
+// 				result,
+// 			});
+// 		})
+// 		.catch((err) => err);
+// });
+router.route('/delete').post((req, res) => {
+	const id = req.body.id;
 	hostel
 		.deleteOne({
 			_id: id,
