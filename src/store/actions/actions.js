@@ -48,6 +48,23 @@ export const fetchDataDetail = (id) => (dispatch) => {
 		.catch((err) => dispatch(error(err)));
 };
 
+// Fetch booked data
+export const fetchBookedData = () => (dispatch) => {
+	
+	axios
+		.get('http://localhost:5000/getbookusers')
+		.then((res) => {
+			dispatch({
+				type: actionTpes.FETCH_BOOK_DATA_SUCCESS,
+				payload:res.data
+			});
+		})
+		.catch((err) => {
+			dispatch(error(err));
+		});
+};
+
+
 // Post data
 export const postStart = () => ({
 	type: actionTpes.POST_DATA_START,
@@ -125,6 +142,7 @@ export const bookFail = () => ({
 export const booking = (
 	index_number,
 	full_name,
+	hostel_name,
 	gender,
 	level,
 	room_type,
@@ -137,12 +155,13 @@ export const booking = (
 	// dispatch(bookStart());
 	axios
 		.post('http://localhost:5000/booking', {
-			index_number:index_number,
+			index_number: index_number,
 			full_name: full_name,
+			hostel_name: hostel_name,
 			gender: gender,
 			level: level,
 			room_type: room_type,
-			room_code: room_number,
+			room_number: room_number,
 			bed: bed,
 			hostel_type: hostel_type,
 			tel_number: tel_number,

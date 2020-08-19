@@ -100,7 +100,7 @@ const Details = (props) => {
 
 
 	const handleBooking = () => { 
-		props.dispatch(booking(localStorage.getItem('indexNumber'),props.full_name,props.gender,props.level,props.room_type,props.room_number,props.bed,details.hostel_type,props.phone_number,props.date))
+		props.dispatch(booking(localStorage.getItem('indexNumber'),props.full_name,details.hostel_name,props.gender,props.level,props.room_type,props.room_number,props.bed,details.hostel_type,props.phone_number,props.date))
 
 		if (props.bookFail) {
 			message.warning('User with that index already exist!')

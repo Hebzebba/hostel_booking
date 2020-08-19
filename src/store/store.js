@@ -6,8 +6,9 @@ import {
 } from "redux";
 import thunk from "redux-thunk";
 import {
-  fetcDataReducer,
-  fetcDataDetailReducer,
+  fetchDataReducer,
+  fetchDataDetailReducer,
+  fetchBookDataReducer,
   postDataReducer
 } from "./reducers/fetchDataReducer";
 
@@ -18,8 +19,9 @@ import { BookReducer } from "./reducers/bookReducer";
 
 const initialState = {};
 const rootReducer = combineReducers({
-  data: fetcDataReducer,
-  detailsData: fetcDataDetailReducer,
+  data: fetchDataReducer,
+  bookedData:fetchBookDataReducer,
+  detailsData: fetchDataDetailReducer,
   studentLogin: authReducer,
   post: postDataReducer,
   book:BookReducer

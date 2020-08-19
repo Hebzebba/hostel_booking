@@ -39,6 +39,17 @@ router.route('/datalist').get((req, res) => {
 		.catch((error) => console.log('error'));
 });
 
+
+router.route('/getbookusers').get((req, res) => {
+	User.find()
+		.then((dat) => {
+			res.send(dat);
+		})
+
+		.catch((error) => console.log('error'));
+});
+
+
 router.route('/upload').post(upload.array('hostel_image'), (req, res) => {
 	res.status(201).json({
 		msg: 'Upload successful',
@@ -89,6 +100,7 @@ router.route('/booking').post((req, res) => {
 				const user = new User({
 		index_number:req.body.index_number,
 		full_name: req.body.full_name,
+		hostelName: req.body.hostel_name,
 		gender: req.body.gender,
 		level: req.body.level,
 		room_type: req.body.room_type,

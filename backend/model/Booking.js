@@ -5,7 +5,7 @@ const User = new mongoose.Schema({
   full_name: {
     type: String
   },
-
+  hostelName: {type:String},
   gender: {
     type: String,
     trim: true

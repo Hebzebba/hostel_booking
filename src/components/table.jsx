@@ -1,7 +1,18 @@
-import React from 'react';
-import { MDBDataTable } from 'mdbreact';
+import React, { useEffect } from 'react';
+import {connect} from 'react-redux'
 
-const TableData = () => {
+import { MDBDataTable } from 'mdbreact';
+import { fetchBookedData } from '../store/actions/actions';
+
+
+const TableData = (props) => {
+
+	useEffect(() => { 
+		props.dispatch(fetchBookedData())
+	}, []);
+	
+	console.log(props.data)
+
 	const data = {
 		columns: [
 			{
@@ -66,48 +77,24 @@ const TableData = () => {
 				width: 150,
 			},
 		],
-		rows: [
-			{
-				name: 'Howard Hatfield',
-				gender: 'Male',
-				level: '100',
-				hosteltype: 'Mixed',
-				roomtype: '1 in a room',
-				roomnumber: 'A401',
-				date: '2008/12/16',
-				confirm: <button>Confirm</button>,
-			},
-			{
-				name: 'Howard Hatfield',
-				gender: 'Male',
-				level: '100',
-				hosteltype: 'Mixed',
-				roomtype: '1 in a room',
-				roomnumber: 'A401',
-				date: '2008/12/16',
-			},
-			{
-				name: 'Howard Hatfield',
-				gender: 'Male',
-				level: '100',
-				hosteltype: 'Mixed',
-				roomtype: '1 in a room',
-				roomnumber: 'A401',
-				date: '2008/12/16',
-			},
-			{
-				name: 'Seth Gregory',
-				gender: 'Female',
-				level: '200',
-				hosteltype: 'Boys',
-				roomtype: '2 in a room',
-				roomnumber: 'A403',
-				date: '2008/12/16',
-			},
-		],
+
+		rows: props.data.map(dat => ({
+			name: dat.full_name,
+			gender: dat.gender,
+			level: dat.level,
+			hostelName:dat.hostelName,
+			hosteltype: dat.hostel_type,
+			roomtype: dat.room_type,
+			roomnumber:dat.room_code,
+			mobilenumber:dat.tel_number,
+			date: dat.date,
+			confirm: <button className="btn btn-danger btn-sm">Confirm</button>
+		}))
 	};
 
 	return <MDBDataTable striped bordered small data={data} />;
 };
-
-export default TableData;
+const mapStateToProps = state => ({
+	data:state.bookedData.bookData
+})
+export default connect(mapStateToProps)(TableData);

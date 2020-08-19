@@ -5,7 +5,7 @@ const initialState = {
   loading: false,
   error: false,
 };
-export const fetcDataReducer = (state = initialState, action) => {
+export const fetchDataReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.FETCH_DATA_START:
       return { ...state, loading: true };
@@ -18,7 +18,21 @@ export const fetcDataReducer = (state = initialState, action) => {
   }
 };
 
-export const fetcDataDetailReducer = (state = [], action) => {
+
+export const fetchBookDataReducer = (state = {bookData:[],loading:false, error:false}, action) => {
+  switch (action.type) {
+    case actionTypes.FETCH_BOOK_DATA_START:
+      return { ...state, loading: true };
+    case actionTypes.FETCH_BOOK_DATA_SUCCESS:
+      return { ...state, loading: false, bookData: action.payload };
+    case actionTypes.FETCH_BOOK_DATA_FAIL:
+      return { ...state, error: true };
+    default:
+      return state;
+  }
+};
+
+export const fetchDataDetailReducer = (state = [], action) => {
   switch (action.type) {
     case actionTypes.FETCH_DATA_DETAILS:
       return (state = action.payload);
