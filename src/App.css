@@ -60,6 +60,36 @@
 .contact-color{
   background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
+
+.about-main{
+  /* height: 100vh !important; */
+}
+.hero-image{
+  width: 100%;
+  height: 30rem;
+background-image: url('/images/bed3.jpg');
+background-repeat: no-repeat;
+background-position: center;
+}
+.hero-image .text{
+  width:8rem;
+  padding:30px;
+ margin-left:50px;
+}
+.about-us{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.about-img{
+  width: 30%;
+  margin-left:50px;
+  }
+.about-content{
+  width: 30%;
+}
+
+
 @media (max-width: 768px) {
   #classicformpage .navbar:not(.top-nav-collapse) {
     background: #424f95 !important;
