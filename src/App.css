@@ -57,7 +57,9 @@
 #classicformpage .top-nav-collapse {
   background: #424f95 !important;
 }
-
+.contact-color{
+  background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
 @media (max-width: 768px) {
   #classicformpage .navbar:not(.top-nav-collapse) {
     background: #424f95 !important;

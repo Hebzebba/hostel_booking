@@ -44,6 +44,16 @@ class NavigationBar extends Component {
 						<MDBNavItem>
 							<MDBNavLink to='/rooms'>Hostels</MDBNavLink>
 						</MDBNavItem>
+						<MDBNavItem>
+							<MDBNavLink to='/map'>Map</MDBNavLink>
+						</MDBNavItem>
+						<MDBNavItem>
+							<MDBNavLink to='/contact'>Contact</MDBNavLink>
+						</MDBNavItem>
+						<MDBNavItem>
+							<MDBNavLink to='/rooms'>About</MDBNavLink>
+						</MDBNavItem>
+						
 					</MDBNavbarNav>
 					<MDBNavbarNav right>
 						<MDBNavItem>
