@@ -35,7 +35,7 @@ class EditHostelForm extends Component {
 
 	render() { 
 	
-	
+	console.log(this.props)
 		return ( 
 <div className="container d-block justify-content-center">
 				<div style={{ width: "50%", padding: "20px", margin: "auto", height: "80vh", overflowY: "auto" }}>
@@ -171,7 +171,7 @@ class EditHostelForm extends Component {
   </Upload>,					
 		</Form.Item>
         <Button type="primary" htmlType="submit" size="middle">
-          Post
+          Update
         </Button>
       </Form.Item>
 				</Form>

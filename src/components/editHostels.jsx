@@ -7,12 +7,13 @@ import EditHostelForm from './editHostelForm';
 
 
 const EditHostels = (props) => {
-const [modal,setModal] = useState(false)
+	const [modal, setModal] = useState(false)
+	const [hostel_id, setHostel_Id] = useState();
 
 
-const toggle = () => {
+const toggle = (id) => {
 	setModal(!modal)
-
+	setHostel_Id(id)
 }
 	const dispatch = useDispatch();
 	useEffect(() => {
@@ -29,32 +30,32 @@ const toggle = () => {
 				label: 'Hostel name',
 				field: 'name',
 				sort: 'asc',
-				// width: 300,
+				
 			},
 			{
 				label: 'Price',
 				field: 'price',
 				sort: 'asc',
-				// width: 100,
+				
 			},
 			{
 				label: 'Edit',
 				field: 'edit',
 				sort: 'asc',
-				// width: 50,
+				
 			},
 			{
 				label: 'Delete',
 				field: 'delete',
 				sort: 'asc',
-				// width: 50,
+			
 			},
 		],
 
 		rows: datalist.map(dat => ({
 			name: dat.hostel_name,
 			price: dat.price,
-			edit: <button className="btn btn-primary btn-sm" onClick={toggle}>Edit</button>,
+			edit: <button className="btn btn-primary btn-sm" onClick={()=>toggle(dat._id)}>Edit</button>,
 			delete: <button className="btn btn-danger btn-sm" onClick={()=>deleteHostel(dat._id)}>Delete</button>,
 		}))
 	};
@@ -66,7 +67,7 @@ const toggle = () => {
 	 <MDBModal isOpen={modal} toggle={toggle} size="lg">
         <MDBModalHeader toggle={toggle}>Edit hostel</MDBModalHeader>
         <MDBModalBody>
-          <EditHostelForm />
+          <EditHostelForm hostelId={hostel_id} />
         </MDBModalBody>
         <MDBModalFooter>
           <MDBBtn color="secondary" onClick={toggle}>Close</MDBBtn>
