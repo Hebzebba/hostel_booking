@@ -20,15 +20,17 @@ const CarouselPage = () => {
         length={3}
         showControls={true}
         showIndicators={true}
-        className="z-depth-1"
+        className="z-depth-1 caro"
       >
         <MDBCarouselInner>
           <MDBCarouselItem itemId="1">
             <MDBView>
               <img
-                className="d-block w-100"
+                className="d-block"
                 src="/images/bed2.jpg"
                 alt="First slide"
+                width="100%"
+
               />
               <MDBMask overlay="black-light" />
             </MDBView>
@@ -40,9 +42,10 @@ const CarouselPage = () => {
           <MDBCarouselItem itemId="2">
             <MDBView>
               <img
-                className="d-block w-100"
-                src="/images/bed3.jpg"
+                className="d-block"
+                src="/images/dormitory.jpg"
                 alt="Second slide"
+                width="100%"
               />
               <MDBMask overlay="black-strong" />
             </MDBView>
@@ -54,9 +57,10 @@ const CarouselPage = () => {
           <MDBCarouselItem itemId="3">
             <MDBView>
               <img
-                className="d-block w-100"
+                className="d-block"
                 src="/images/beds4.jpg"
                 alt="Third slide"
+                width="100%"
               />
               <MDBMask overlay="black-slight" />
             </MDBView>

@@ -32,7 +32,7 @@ class Home extends Component {
 						<div className='col-sm-12 col-md-12 pt-5'>
 							<center>
 								<h3>HERE TO HELP YOU MEET THE WORLD</h3>
-								<p style={{ width: '10rem' }}>
+								<p style={{ width: '10rem',color:"white" }}>
 									Stay in the heart of the action and discover a world beyond
 									the tourist brochure
 								</p>
@@ -43,7 +43,7 @@ class Home extends Component {
 							<center>
 								<HomeOutlined style={{ fontSize: 100, color: 'white' }} />
 								<h4>Hostels you'll love</h4>
-								<p style={{ width: '10rem' }}>
+								<p style={{ width: '10rem' ,color:"white"}}>
 									13 Million reviews from our community of travelers.
 								</p>
 							</center>
@@ -55,7 +55,7 @@ class Home extends Component {
 								/>
 
 								<h4>24/7 Customer service</h4>
-								<p style={{ width: '10rem' }}>
+								<p style={{ width: '10rem',color:"white" }}>
 									Available in 19 languages. Helping you meet the world.
 								</p>
 							</center>
@@ -64,7 +64,7 @@ class Home extends Component {
 							<center>
 								<MessageOutlined style={{ fontSize: 100, color: 'white' }} />
 								<h4>Instant Confirmation</h4>
-								<p style={{ width: '10rem' }}>
+								<p style={{ width: '10rem',color:"white" }}>
 									Your booking is guaranteed and we don't charge any booking
 									fees.
 								</p>

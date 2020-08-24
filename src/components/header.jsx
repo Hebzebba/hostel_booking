@@ -31,27 +31,28 @@ class NavigationBar extends Component {
 			return <Redirect to='/' />;
 		}
 		return (
-			<MDBNavbar color='default-color' dark expand='md'>
+			<MDBNavbar  color="default" dark expand='md' className="header">
 				<MDBNavbarBrand>
+					<img src="images/logo.png" width="10%" className="pr-2" alt=""/>
 					<strong className='white-text'>KTU HOSTEL RESERVATION</strong>
 				</MDBNavbarBrand>
 				<MDBNavbarToggler onClick={this.toggleCollapse} />
 				<MDBCollapse id='navbarCollapse3' isOpen={this.state.isOpen} navbar>
 					<MDBNavbarNav left>
-						<MDBNavItem active>
-							<MDBNavLink to='/home'>Home</MDBNavLink>
+						<MDBNavItem>
+							<MDBNavLink to='/home' className="header-link">Home</MDBNavLink>
 						</MDBNavItem>
 						<MDBNavItem>
-							<MDBNavLink to='/rooms'>Hostels</MDBNavLink>
+							<MDBNavLink to='/rooms' className="header-link">Hostels</MDBNavLink>
 						</MDBNavItem>
 						<MDBNavItem>
-							<MDBNavLink to='/map'>Map</MDBNavLink>
+							<MDBNavLink to='/map' className="header-link">Map</MDBNavLink>
 						</MDBNavItem>
 						<MDBNavItem>
-							<MDBNavLink to='/contact'>Contact</MDBNavLink>
+							<MDBNavLink to='/contact' className="header-link">Contact</MDBNavLink>
 						</MDBNavItem>
 						<MDBNavItem>
-							<MDBNavLink to='/about'>About Us</MDBNavLink>
+							<MDBNavLink to='/about' className="header-link">About Us</MDBNavLink>
 						</MDBNavItem>
 						
 					</MDBNavbarNav>

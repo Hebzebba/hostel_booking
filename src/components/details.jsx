@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Steps, Button, message } from 'antd';
+import { Steps, Button, message ,Radio,Select} from 'antd';
 import { connect } from 'react-redux';
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
 import { booking } from '../store/actions/actions';
+
 import{
 
 	UserOutlined,
@@ -15,7 +16,6 @@ import{
 import {
 	MDBCard,
 	MDBCardBody,
-	MDBCardImage,
 	MDBCardTitle,
 	MDBRow,
 	MDBCol,
@@ -35,13 +35,22 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const { Step } = Steps;
 
+;
+
+
 const Details = (props) => {
+	const { radio, setRadio } = useState(2);
+
+
 	const details = useSelector((state) => state.detailsData);
 	const dispatch = useDispatch();
 	const [current, setCurrent] = useState(0);
 	const [photoIndex, setphotoIndex] = useState(0);
 	const [isOpen, setisOpen] = useState(false);
 
+// const onClick = nr => () =>setRadio(nr)
+
+	
 	const next = () => {
 		const cur = current + 1;
 		setCurrent(cur);
@@ -124,7 +133,23 @@ const Details = (props) => {
 		},
 		{
 			title: 'Payment Process',
-			content: <Payment merchant_id={ details.merchant_id }/>,
+			content: <div>
+				<br />
+				<br />
+				<Radio.Group name="radiogroup" defaultValue={1}>
+				<Radio value={1}>Bank</Radio>
+				
+					<Select>
+						<Select.Option value ="MTN MoMo">MTN MoMo</Select.Option>
+						<Select.Option value ="AirtelTigo Cash">AirtelTigo Cash</Select.Option>
+						<Select.Option value ="Vodafone Cash">Vodafone Cash</Select.Option>
+				</Select>
+ 			 </Radio.Group>
+				{/* // <Payment merchant_id={ details.merchant_id }/> */}
+				<br />
+				<br/>
+				</div>
+			,
 			icon: <SolutionOutlined />,
 		},
 		{

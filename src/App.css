@@ -1,3 +1,12 @@
+.header{
+  color:white;
+  background-color: Blue;;
+}
+
+.header-link{
+  color: white;
+}
+
 .form-simple .font-small {
   font-size: 0.8rem;
 }
@@ -61,21 +70,6 @@
   background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
-.about-main{
-  /* height: 100vh !important; */
-}
-.hero-image{
-  width: 100%;
-  height: 30rem;
-background-image: url('/images/bed3.jpg');
-background-repeat: no-repeat;
-background-position: center;
-}
-.hero-image .text{
-  width:8rem;
-  padding:30px;
- margin-left:50px;
-}
 .about-us{
   display: flex;
   justify-content: space-evenly;
@@ -88,8 +82,19 @@ background-position: center;
 .about-content{
   width: 30%;
 }
-
-
+.marker{
+  width: 30px;
+  height: 30px;
+  border: none;
+  outline: none;
+  background: transparent;
+}
+.caro{
+  height:70vh;
+}
+.caro img{
+  position:center;
+}
 @media (max-width: 768px) {
   #classicformpage .navbar:not(.top-nav-collapse) {
     background: #424f95 !important;
