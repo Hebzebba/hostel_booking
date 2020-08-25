@@ -62,15 +62,22 @@ router.route('/add').post(upload.array('hostel_image'), (req, res) => {
 	const host = 'localhost';
 	const port = 5000;
 
+	console.log(req.body.hostel_image);
+
 	const Hostel = new hostel({
 		hostel_name: req.body.hostel_name,
 		price: req.body.price,
 		one_in_identity: req.body.one_in_identity,
 		four_in_identity: req.body.four_in_identity,
 		description: req.body.description,
+		account_number:req.body.account_number,
+		longitude: req.body.longitude,
+		latitude:req.body.latitude,
 		distance: req.body.distance,
 		merchant_id:req.body.merchant_id,
 		hostel_type: req.body.hostel_type,
+		bank_name: req.body.bank_name,
+		account_name:req.body.account_name,
 		hostel_image: req.body.hostel_image.map(
 			(name) => `${url}://${host}:${port}/images/${name}`
 		),

@@ -1,10 +1,19 @@
-import React,{useState} from 'react';
-import ReactMapGl from 'react-map-gl';
+import React,{useState,useEffect} from 'react';
+import ReactMapGl,{Marker} from 'react-map-gl';
 import Header from './header'
 import Footer from './footer'
+import { connect } from 'react-redux'
+
+import { fetchData } from '../store/actions/actions';
+
 
 
 const Map = (props) => { 
+
+console.log(props.data)
+    useEffect(() => { 
+        props.dispatch(fetchData())
+    },[])
     const [viewset, setVeiwSet] = useState({
     width: "100%",
     height: "80vh",
@@ -18,9 +27,12 @@ const Map = (props) => {
         mapStyle="mapbox://styles/kelivin/cke5mokht2a8q19oga0xnh2yy"
         onViewportChange={nextViewport => setVeiwSet(nextViewport)}
         >
+
         </ReactMapGl>
         <Footer />
     </div>
 }
-
-export default Map;
+const mapStateToProps = state => ({
+    data : state.data.datalist
+})
+export default connect(mapStateToProps)(Map);

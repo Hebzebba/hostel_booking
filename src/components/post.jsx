@@ -3,7 +3,6 @@ import { Form, Button, Input, InputNumber,Select,Upload,message } from 'antd'
 import { MinusCircleOutlined, PlusOutlined, UploadOutlined } from '@ant-design/icons';
 import { addData } from '../store/actions/actions';
 import { connect } from "react-redux";
-import { Redirect } from 'react-router-dom';
 
 
 class Post extends Component {
@@ -24,11 +23,12 @@ class Post extends Component {
 
 	handleSubmit = (event) => {
 		const imageNames = this.state.images.map(name => name.name);
-		const { hostel_name, price, one_in_identity, four_in_identity, description, distance, merchant_id, hostel_type, map_area } = event
+		console.log(imageNames)
+		const { hostel_name, price, one_in_identity, four_in_identity, description, distance, merchant_id, bank_number,account_number,longitude,latitude,hostel_type, map_area } = event
 		
-		this.props.dispatch(addData(hostel_name, price, one_in_identity, four_in_identity, description, distance, merchant_id, hostel_type, imageNames, map_area));
+		this.props.dispatch(addData(hostel_name, price, one_in_identity, four_in_identity, description, distance, merchant_id, hostel_type, imageNames, map_area,account_number,bank_number,longitude,latitude));
 		message.success("Post Successful")
-		this.props.history.push('http://localhost:3000/dashboard')
+		// this.props.history.push('http://localhost:3000/dashboard')
 	}
 
 
@@ -150,8 +150,23 @@ class Post extends Component {
 
 <Form.Item required={true} name="merchant_id">
 	<InputNumber style={{width:"100%"}} placeholder="Merchant ID" type="number"/>
-		</Form.Item>							
-	<Form.Item>
+</Form.Item>
+<Form.Item required={true} name="bank_name">
+	<Input style={{width:"100%"}} placeholder="Bank Name" type="text"/>
+</Form.Item>
+
+<Form.Item required={true} name="account_number">
+	<InputNumber style={{width:"100%"}} placeholder="Account Number" type="number"/>
+</Form.Item>
+
+<Form.Item required={true} name="longitude">
+	<InputNumber style={{width:"100%"}} placeholder="Longitude" type="number"/>
+</Form.Item>						
+
+<Form.Item required={true} name="latitude">
+	<InputNumber style={{width:"100%"}} placeholder="Latitude" type="number"/>
+</Form.Item>						
+<Form.Item>
 <Form.Item name="hostel_type">
 	
 	<Select placeholder="Select hostel type">

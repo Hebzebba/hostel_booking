@@ -92,7 +92,13 @@ export const addData = (
 	merchant_id,
 	hostel_type,
 	hostel_image,
-	map_area
+	map_area,
+	account_number,
+	bank_name,
+	longitude,
+	latitude,
+
+
 ) => (dispatch) => {
 	dispatch(postStart());
 	axios
@@ -107,6 +113,10 @@ export const addData = (
 			hostel_type: hostel_type,
 			hostel_image: hostel_image,
 			map_area: map_area,
+			account_number:account_number,
+			bank_name:bank_name,
+			longitude:longitude,
+			latitude:latitude
 		})
 		.then((res) => dispatch(postSucces()))
 		.catch((err) => dispatch(postFail()));

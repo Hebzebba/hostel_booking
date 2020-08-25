@@ -14,7 +14,6 @@ const TigoPayment = (props) => {
                     <p>4. Enter Amount </p>
                     <p>5. Enter PIN</p>
                     <p>6. Press 1 to confirm</p>
-
                 </div>
             </div>
      </div>

@@ -18,9 +18,13 @@ const Hostel = new mongoose.Schema({
     type: []
   },
   description: String,
+  account_number: String,
+  longitude: Number,
+  latitude:Number,
   distance: Number,
   merchant_id:Number,
   hostel_type: String,
+  bank_name: String,
   hostel_image: {
     type: []
   },
