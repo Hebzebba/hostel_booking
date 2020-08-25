@@ -62,8 +62,6 @@ router.route('/add').post(upload.array('hostel_image'), (req, res) => {
 	const host = 'localhost';
 	const port = 5000;
 
-	console.log(req.body.hostel_image);
-
 	const Hostel = new hostel({
 		hostel_name: req.body.hostel_name,
 		price: req.body.price,
