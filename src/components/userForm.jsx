@@ -160,21 +160,17 @@ const UserForm = (props) => {
 				size={componentSize}
 				className='pt-3'>
 				<Form.Item label='Full name' required={true}>
-					<Input type='text' required={true}   onChange={handleChangeName} />
+					<Input type='text' required={true}
+						value={localStorage.getItem('user')}
+						contentEditable={false}
+					/>
 				</Form.Item>
 				<Form.Item label='Gender' required={true}>
-					<Select required={true} onChange={handleChangeGender} defaultValue = "Select Gender">
-						<Select.Option value='male'>Male</Select.Option>
-						<Select.Option value='female'>Female</Select.Option>
-					</Select>
+					<Input type="text" value={localStorage.getItem('gender')} contentEditable={false}/>
 				</Form.Item>
 
 				<Form.Item label='Level' required={true}>
-					<Select required={true} onChange={handleChangeLevel} defaultValue = "Select Level">
-						<Select.Option value='level 100'>level 100</Select.Option>
-						<Select.Option value='level 200'>level 200</Select.Option>
-						<Select.Option value='level 300'>level 300</Select.Option>
-					</Select>
+					<Input type="text" value={localStorage.getItem('level')} contentEditable={false}/>
 				</Form.Item>
 
 				<Form.Item label='Room Type' required={true}>

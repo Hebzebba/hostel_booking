@@ -4,6 +4,7 @@ const Admin = require('../model/adminData');
 const User = require('../model/booking');
 const Student = require('../model/students');
 
+
 const multer = require('multer');
 var jwt = require('jsonwebtoken');
 
@@ -131,21 +132,8 @@ router.route('/details/:id').get((req, res) => {
 		.catch((err) => err);
 });
 
-// router.route('/delete/:id').delete((req, res) => {
-// 	const id = req.params.id;
-// 	hostel
-// 		.deleteOne({
-// 			_id: id,
-// 		})
-// 		.exec()
-// 		.then((result) => {
-// 			res.send({
-// 				message: 'Data removed',
-// 				result,
-// 			});
-// 		})
-// 		.catch((err) => err);
-// });
+
+
 router.route('/delete').post((req, res) => {
 	const id = req.body.id;
 	hostel
@@ -160,6 +148,28 @@ router.route('/delete').post((req, res) => {
 			});
 		})
 		.catch((err) => err);
+});
+
+router.route('/update').post((req, res) => {
+	let id = req.body.id;
+
+	console.log(id)
+
+	let items = {
+		hostel_name: req.body.hostel_name,
+		price: req.body.price,
+		one_in_identity: req.body.one_in_identity,
+		four_in_identity: req.body.four_in_identity,
+		description: req.body.description,
+		distance: req.body.distance,
+		merchant_id:req.body.merchant_id,
+		hostel_type: req.body.hostel_type,
+	}
+	hostel.updateOne({ _id: id }, { $set:items } , (err, result) => {
+		console.log("dataUpdated")
+		res.send(result)
+	 })
+	
 });
 
 
@@ -226,8 +236,9 @@ router.route('/adminlogin').post((req, res) => {
 						);
 
 						res.status(201).json({
-							msg: 'Auth sucessfull',
+							msg: 'Admin',
 							token: token,
+
 						});
 					} else {
 						res.status(401).json({
@@ -306,7 +317,9 @@ router.route('/studentlogin').post((req, res) => {
 						res.status(201).json({
 							token: token,
 							fullname: `${user[0].f_name} ${user[0].l_name}`,
-							index_number:user[0].index_number,
+							index_number: user[0].index_number,
+							gender: user[0].gender,
+							level:user[0].level
 						});
 					} else {
 						res.status(401).json({

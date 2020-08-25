@@ -13,6 +13,8 @@ import TableData from "./table";
 import Post from "./post";
 import UpdateProfile from "./updateprofile";
 import EditHostels from "./editHostels";
+import { Redirect } from "react-router-dom";
+
 
 
 const { Header, Sider, Content } = Layout;
@@ -45,7 +47,16 @@ class Dashboard extends Component {
     return this.setState({ conten: () => <UpdateProfile /> });
   };
 
+  logout = () => { 
+    localStorage.removeItem('isAdmin')
+    localStorage.removeItem('Admintoken');
+    return <Redirect to="/admin"/>
+  }
+
   render() {
+     if (localStorage.getItem('isAdmin') === null && localStorage.getItem('Admintoken') === null) { 
+    return <Redirect to="/admin"/>
+  }else
     return (
       <Layout>
         <Sider trigger={null} collapsible collapsed={this.state.collapsed}>
@@ -75,6 +86,13 @@ class Dashboard extends Component {
               onClick={this.updateprofile}
             >
               Update profile
+            </Menu.Item>
+             <Menu.Item
+              key="5"
+              icon={<UploadOutlined />}
+              onClick={this.logout}
+            >
+              Logout
             </Menu.Item>
           </Menu>
         </Sider>

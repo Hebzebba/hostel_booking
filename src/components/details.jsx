@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Steps, Button, message ,Radio,Select} from 'antd';
+import { Steps, Button, message ,Tabs} from 'antd';
 import { connect } from 'react-redux';
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
@@ -22,7 +22,9 @@ import {
 	MDBCardHeader,
 	MDBContainer,
 } from 'mdbreact';
-import Payment from './payments';
+import MomoPayment from './momopayments';
+import TigoPayment from './tigopayments';
+import VodaPayment from './vodapayments';
 import Last from './last'
 
 import Header from './header';
@@ -32,6 +34,8 @@ import Footer from './footer';
 import { fetchDataDetail } from '../store/actions/actions';
 import 'bootstrap/dist/css/bootstrap.css';
 import { useDispatch, useSelector } from 'react-redux';
+import AccountNumber from './accountNumber';
+
 
 const { Step } = Steps;
 
@@ -39,8 +43,6 @@ const { Step } = Steps;
 
 
 const Details = (props) => {
-	const { radio, setRadio } = useState(2);
-
 
 	const details = useSelector((state) => state.detailsData);
 	const dispatch = useDispatch();
@@ -48,7 +50,6 @@ const Details = (props) => {
 	const [photoIndex, setphotoIndex] = useState(0);
 	const [isOpen, setisOpen] = useState(false);
 
-// const onClick = nr => () =>setRadio(nr)
 
 	
 	const next = () => {
@@ -66,7 +67,7 @@ const Details = (props) => {
 
 
 		if (imagesrc === null || imagesrc === undefined) {
-	console.log("Loading")
+	
 		}
 		else
 			return imagesrc.map((imageSrc) => {
@@ -119,7 +120,7 @@ const Details = (props) => {
 		  message.success('Process complete!')
 		}
 	}
-
+	
 
 	const steps = [
 		{
@@ -136,16 +137,12 @@ const Details = (props) => {
 			content: <div>
 				<br />
 				<br />
-				<Radio.Group name="radiogroup" defaultValue={1}>
-				<Radio value={1}>Bank</Radio>
-				
-					<Select>
-						<Select.Option value ="MTN MoMo">MTN MoMo</Select.Option>
-						<Select.Option value ="AirtelTigo Cash">AirtelTigo Cash</Select.Option>
-						<Select.Option value ="Vodafone Cash">Vodafone Cash</Select.Option>
-				</Select>
- 			 </Radio.Group>
-				{/* // <Payment merchant_id={ details.merchant_id }/> */}
+				<Tabs>
+					<Tabs.TabPane tab={<span>Bank <img src="/images/bank.jpg" width="40%"/> </span>}key="1"> <AccountNumber /></Tabs.TabPane>
+					<Tabs.TabPane tab={<span className="pr-5">MoMo pay <img src="/images/mtn.png" width="40%"/></span>}key="2"><MomoPayment/></Tabs.TabPane>
+					<Tabs.TabPane tab={<span>AirtelTigo Cash <img src="/images/tigo.jpg" width="30%"/></span>}key="3"><TigoPayment/></Tabs.TabPane>
+					<Tabs.TabPane tab={<span>Vodafone Cash <img src="/images/vodafone.png" width="40%"/></span>}key="4"><VodaPayment/></Tabs.TabPane>
+				</Tabs>
 				<br />
 				<br/>
 				</div>
@@ -153,7 +150,7 @@ const Details = (props) => {
 			icon: <SolutionOutlined />,
 		},
 		{
-			title: 'Last',
+			title: 'Verify',
 			content: <Last />,
 			icon: <LoadingOutlined />,
 		},

@@ -152,7 +152,7 @@ export const booking = (
 	tel_number,
 	date
 ) => (dispatch) => {
-	// dispatch(bookStart());
+	
 	axios
 		.post('http://localhost:5000/booking', {
 			index_number: index_number,
@@ -207,6 +207,21 @@ export const studentLogin = (index_number, password) => (dispatch) => {
 			localStorage.setItem('token', res.data.token);
 			localStorage.setItem('user', res.data.fullname);
 			localStorage.setItem('indexNumber', res.data.index_number);
+			localStorage.setItem('gender', res.data.gender);
+			localStorage.setItem('level', res.data.level);
+		})
+		.catch((err) => dispatch(authFail()));
+};
+
+
+export const adminLogin = (email, password) => (dispatch) => {
+	axios
+		.post('http://localhost:5000/adminlogin', {
+			email: email,
+			password: password,
+		})
+		.then((res) => {
+			console.log(res)
 		})
 		.catch((err) => dispatch(authFail()));
 };

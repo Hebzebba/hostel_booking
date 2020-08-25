@@ -20,7 +20,7 @@ import {
 	MDBCardHeader,
 } from 'mdbreact';
 
-import { fetchData, detail } from '../store/actions/actions';
+import { fetchData } from '../store/actions/actions';
 
 const Rooms = () => {
 	const getUnique = (items, value) => {
