@@ -43,7 +43,7 @@ const CarouselPage = () => {
             <MDBView>
               <img
                 className="d-block"
-                src="/images/dormitory.jpg"
+                src="/images/hostels.jpg"
                 alt="Second slide"
                 width="100%"
               />

@@ -68,6 +68,14 @@ padding-left:50px;
 width:15rem;
 }
 
+/* Contact forms */
+.contact{
+  background-image: linear-gradient(to top, #00c6fb 0%, #005bea 100%);
+}
+.contact-form{
+  width: 30%;
+  margin:auto auto;
+}
 
 /* Intros */
 

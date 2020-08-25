@@ -18,7 +18,6 @@ const Map = (props) => {
         mapStyle="mapbox://styles/kelivin/cke5mokht2a8q19oga0xnh2yy"
         onViewportChange={nextViewport => setVeiwSet(nextViewport)}
         >
-
         </ReactMapGl>
         <Footer />
     </div>
