@@ -12,7 +12,7 @@ import {
 	MDBIcon,
 } from 'mdbreact';
 
-class NavigationBar extends Component {
+class Header extends Component {
 	state = {
 		isOpen: false,
 	};
@@ -76,4 +76,4 @@ class NavigationBar extends Component {
 	}
 }
 
-export default NavigationBar;
+export default Header;

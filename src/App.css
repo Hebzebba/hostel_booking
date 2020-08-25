@@ -41,6 +41,34 @@
   background-image: linear-gradient(-20deg, #6e45e2 0%, #88d3ce 100%);
 }
 
+/* About Page */
+.about-banner{
+  width: 100%;
+  height: 50vh;
+  background-image: url('/images/bed3.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.about-content{
+width:100% !important;
+  display: flex;
+  justify-content:center;
+  align-items:center;
+}
+.about-img{
+flex:1;
+padding-left:50px;
+}
+.about-text{
+  flex:1;
+}
+.about-text p{
+width:15rem;
+}
+
+
 /* Intros */
 
 #classicformpage .view {
