@@ -1,14 +1,32 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBIcon } from 'mdbreact';
 import Header from './header'
 import Footer from './footer'
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchData } from '../store/actions/actions';
+
 
 
 
 const Contact = () => {
+  const getUnique = (items, value) => {
+		return [...new Set(items.map((item) => item[value]))];
+	};
+
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch(fetchData());
+	}, []);
+	const list = useSelector((state) => state.data);
+	const { datalist, loading, error } = list;
+
+	let types = getUnique(datalist, 'hostel_type');
+	types = ['all', ...types];
+
 return (
 <div className="contact">
-    <Header />
+    <Header links={types}/>
     <div className="contact-form">
       <form>
         <p className="h4 text-center mb-4">Write to us</p>

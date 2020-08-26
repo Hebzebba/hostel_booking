@@ -22,7 +22,7 @@ import {
 
 import { fetchData } from '../store/actions/actions';
 
-const Rooms = () => {
+const Rooms = (props) => {
 	const getUnique = (items, value) => {
 		return [...new Set(items.map((item) => item[value]))];
 	};
@@ -85,7 +85,7 @@ const Rooms = () => {
 	);
 
 	const filtered = datalist.map((data) => {
-		if (hostelType === data.hostel_type) {
+		if (props.match.params.type === data.hostel_type) {
 			return filterRooms(data);
 		}
 		if (Number(price) === data.price) {
@@ -116,7 +116,7 @@ const Rooms = () => {
 	return (
 		<>
 			<div className='main-container'>
-				<Header />
+				<Header links={types}/>
 				<div className='container-fluid'>
 					<MDBRow>
 						<MDBCol style={{ width: '100%' }}>

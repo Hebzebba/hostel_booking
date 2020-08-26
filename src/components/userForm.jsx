@@ -5,17 +5,18 @@ import { useDispatch, useSelector,connect } from 'react-redux';
 import PhoneInput from 'react-phone-number-input';
 import {bookStart}from "../store/actions/actions" 
 import * as actionTpes from '../store/actions/actionTypes';
+import moment from 'moment';
 const UserForm = (props) => {
 	const [componentSize, setComponentSize] = useState('');
 
 	const [roomType, setroomType] = useState('');
-	const [full_name, setfull_name] = useState('');
-	const [gender, setGender] = useState('');
-	const [level, setLevel] = useState('');
+	const [full_name, setfull_name] = useState(localStorage.getItem('user'));
+	const [gender, setGender] = useState(localStorage.getItem('gender'));
+	const [level, setLevel] = useState(localStorage.getItem('level'));
 	const [room_number, setroom_number] = useState('');
 	const [bed, setBed] = useState('');
 	const [contact, setContact] = useState('');
-	const [date, setDate] = useState('');
+	const [date, setDate] = useState(moment(new Date()));
 	
 
 	const onFormLayoutChange = ({ size }) => {
@@ -101,8 +102,6 @@ const UserForm = (props) => {
 	const handleFieldChange = () => { 
 
 	}
-	
-	// console.log(`${gender} ${full_name} ${level} ${roomType} ${bed} ${room_number}`)
 
 
 	const checkRoomType = () => {
@@ -163,14 +162,18 @@ const UserForm = (props) => {
 					<Input type='text' required={true}
 						value={localStorage.getItem('user')}
 						contentEditable={false}
+						onChange={handleChangeName}
 					/>
 				</Form.Item>
 				<Form.Item label='Gender' required={true}>
-					<Input type="text" value={localStorage.getItem('gender')} contentEditable={false}/>
+					<Input type="text" value={localStorage.getItem('gender')} contentEditable={false}
+					onChange={handleChangeGender}
+					/>
 				</Form.Item>
 
 				<Form.Item label='Level' required={true}>
-					<Input type="text" value={localStorage.getItem('level')} contentEditable={false}/>
+					<Input type="text" value={localStorage.getItem('level')} contentEditable={false}
+					/>
 				</Form.Item>
 
 				<Form.Item label='Room Type' required={true}>
@@ -197,13 +200,12 @@ const UserForm = (props) => {
 						value={contact}
 						onChange={handleChangeContact}
 						defaultCountry="GH"
+						limitMaxLength={true}
 					/>
 				</Form.Item>
 
 				<Form.Item label='Date' required={true}>
-					<DatePicker
-						onChange={handleChangeDate}
-					/>
+					<DatePicker defaultValue={moment(new Date())} disabled onChange={handleChangeDate}/>
 				</Form.Item>
 			</Form>
 		</>

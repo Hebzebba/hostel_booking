@@ -10,7 +10,13 @@ import {
 	MDBCollapse,
 	MDBBtn,
 	MDBIcon,
+	MDBDropdownItem,
+	MDBDropdownMenu,
+	MDBDropdown,
+	MDBDropdownToggle
 } from 'mdbreact';
+
+import { Menu } from 'antd';
 
 class Header extends Component {
 	state = {
@@ -27,6 +33,7 @@ class Header extends Component {
 	};
 
 	render() {
+		console.log(this.props)
 		if (localStorage.getItem('token') === null) {
 			return <Redirect to='/' />;
 		}
@@ -43,7 +50,20 @@ class Header extends Component {
 							<MDBNavLink to='/home' className="header-link">Home</MDBNavLink>
 						</MDBNavItem>
 						<MDBNavItem>
-							<MDBNavLink to='/rooms' className="header-link">Hostels</MDBNavLink>
+							{/* <MDBNavLink to='/rooms' className="header-link">Hostels</MDBNavLink> */}
+					<MDBDropdown>
+								
+                <MDBDropdownToggle nav caret>
+                  <span className="mr-2">Hostel</span>
+                </MDBDropdownToggle>
+                <MDBDropdownMenu>
+                  
+
+				{this.props.links.map((data, key) => ( 
+					<MDBDropdownItem href={`/rooms/${data}`} key={key}>{data}</MDBDropdownItem>))
+				}
+                </MDBDropdownMenu>
+              </MDBDropdown>
 						</MDBNavItem>
 						<MDBNavItem>
 							<MDBNavLink to='/map' className="header-link">Map</MDBNavLink>

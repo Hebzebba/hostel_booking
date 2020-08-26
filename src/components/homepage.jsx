@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import CarouselPage from './carousel';
-import NavigationBar from './header';
+import Header from './header';
 import Footer from './footer';
 import 'bootstrap/dist/css/bootstrap.css';
 import { connect } from 'react-redux';
-import { studentLogin } from '../store/actions/actions';
+import { studentLogin, fetchData } from '../store/actions/actions';
 import { Redirect } from 'react-router-dom';
+
 
 import {
 	HomeOutlined,
@@ -18,13 +19,28 @@ class Home extends Component {
 		super(props);
 		this.state = {};
 	}
+
+	componentDidMount() { 
+		this.props.dispatch(fetchData())
+	}
+
+
+	 getUnique = (items, value) => {
+		return [...new Set(items.map((item) => item[value]))];
+	};
+
+
+	types = this.getUnique(this.props.list.datalist, 'hostel_type');
+	types = ['all', ...this.types];
+
 	render() {
+		console.log(this.props)
 		if (localStorage.getItem('token') === null) {
 			return <Redirect to='/' />;
 		}
 		return (
 			<div className='home-container'>
-				<NavigationBar />
+				<Header links={this.types}/>
 
 				<CarouselPage />
 				<div className='container-fluid info'>
@@ -78,6 +94,8 @@ class Home extends Component {
 	}
 }
 
-const mapStateToprops = (state) => ({});
+const mapStateToprops = (state) => ({
+	list : state.data,
+});
 
-export default connect(mapStateToprops, { studentLogin })(Home);
+export default connect(mapStateToprops)(Home);

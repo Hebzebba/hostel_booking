@@ -29,6 +29,7 @@ class App extends Component {
           <Route exact={true} path="/about" component={About} />
           <Route exact={true} path="/map" component={Map} />
           <Route exact={true} path="/details/:id" component={Details} />
+          <Route exact={true} path="/rooms/:type" component={Rooms} />
           <Route exact={true} path="/dashboard" component={Dashboard} />
           <Route exact={true} path="/admin" component={AdminLogin} />
         </div>

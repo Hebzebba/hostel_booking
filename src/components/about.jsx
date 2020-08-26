@@ -1,10 +1,29 @@
-import React from 'react';
+import React, { useEffect} from 'react';
 import Header from './header'
 import Footer from './footer'
+import { fetchData } from '../store/actions/actions';
+import { useDispatch, useSelector } from 'react-redux';
 
 const About = (props) => {
+
+    const getUnique = (items, value) => {
+		return [...new Set(items.map((item) => item[value]))];
+	};
+
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch(fetchData());
+	}, []);
+	const list = useSelector((state) => state.data);
+	const { datalist, loading, error } = list;
+
+	let types = getUnique(datalist, 'hostel_type');
+	types = ['all', ...types];
+
+
     return <div>
-        <Header />
+        <Header links={types} />
         <div className="about-banner"></div>
         <div className="about-content">
             <div className="about-img">

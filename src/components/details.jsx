@@ -35,6 +35,10 @@ import { fetchDataDetail } from '../store/actions/actions';
 import 'bootstrap/dist/css/bootstrap.css';
 import { useDispatch, useSelector } from 'react-redux';
 import AccountNumber from './accountNumber';
+import { fetchData } from '../store/actions/actions';
+import moment from 'moment';
+
+
 
 
 const { Step } = Steps;
@@ -50,6 +54,16 @@ const Details = (props) => {
 	const [photoIndex, setphotoIndex] = useState(0);
 	const [isOpen, setisOpen] = useState(false);
 
+
+	const getUnique = (items, value) => {
+		return [...new Set(items.map((item) => item[value]))];
+	};
+
+	const list = useSelector((state) => state.data);
+	const { datalist, loading, error } = list;
+
+	let types = getUnique(datalist, 'hostel_type');
+	types = ['all', ...types];
 
 	
 	const next = () => {
@@ -95,8 +109,11 @@ const Details = (props) => {
 	
 	
 
+
+
 	useEffect(() => {
 		dispatch(fetchDataDetail(props.match.params.id));
+		dispatch(fetchData());
 	}, []);
 
 	let imagesrc = [];
@@ -110,7 +127,7 @@ const Details = (props) => {
 
 
 	const handleBooking = () => { 
-		props.dispatch(booking(localStorage.getItem('indexNumber'),props.full_name,details.hostel_name,props.gender,props.level,props.room_type,props.room_number,props.bed,details.hostel_type,props.phone_number,props.date))
+		props.dispatch(booking(localStorage.getItem('indexNumber'),localStorage.getItem('user'),details.hostel_name,localStorage.getItem('gender'),localStorage.getItem('level'),props.room_type,props.room_number,props.bed,details.hostel_type,props.phone_number,moment(new Date())))
 
 		if (props.bookFail) {
 			message.warning('User with that index already exist!')
@@ -159,7 +176,7 @@ const Details = (props) => {
 	return (
 		<>
 			<div className='main-container'>
-				<Header />
+				<Header links={types}/>
 
 				<div className='container-fluid '>
 					<MDBRow>
