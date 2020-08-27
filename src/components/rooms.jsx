@@ -112,18 +112,32 @@ const onChangePrice = value => {
 		}
 
 		
-		// if (Number(inputValueDistance) >= 1 && Number(inputValueDistance) <= 200) {
-		// 	console.log(data)
-		// 	return filterRooms(data);
-		// }
 
-		if ((Number(inputValueDistance) >= 1 && Number(inputValueDistance) <= data.distance)  || (Number(price) === data.price && (props.match.params.type === 'all' || props.match.params.type === 'Mixed' ||props.match.params.type === 'Females'||props.match.params.type === 'Males'))) {
-			console.log(data)
+		if (( Number(inputValueDistance) <= data.distance && Number(inputValueDistance) == data.distance)  || (Number(price) === data.price && (props.match.params.type === 'all' || props.match.params.type === 'Mixed' ||props.match.params.type === 'Females'||props.match.params.type === 'Males'))) {
+			return filterRooms(data);
+		}
+
+		if (( Number(inputValueDistance) > 50 && data.distance <= 250)  || (Number(price) === data.price && (props.match.params.type === 'all' || props.match.params.type === 'Mixed' ||props.match.params.type === 'Females'||props.match.params.type === 'Males'))) {
 			return filterRooms(data);
 		}
 		
+
+		if (( Number(inputValueDistance) >= 250 && data.distance <= 500)  || (Number(price) === data.price && (props.match.params.type === 'all' || props.match.params.type === 'Mixed' ||props.match.params.type === 'Females'||props.match.params.type === 'Males'))) {
+			return filterRooms(data);
+		}
+
+		if (( Number(inputValueDistance) >= 500 && data.distance <= 650)  || (Number(price) === data.price && (props.match.params.type === 'all' || props.match.params.type === 'Mixed' ||props.match.params.type === 'Females'||props.match.params.type === 'Males'))) {
+			return filterRooms(data);
+		}
+
 		
-		// distance
+		if (( Number(inputValueDistance) >= 650 && data.distance <= 900)  || (Number(price) === data.price && (props.match.params.type === 'all' || props.match.params.type === 'Mixed' ||props.match.params.type === 'Females'||props.match.params.type === 'Males'))) {
+			return filterRooms(data);
+		}
+		if (( Number(inputValueDistance) >= 900 && data.distance <= 1500)  || (Number(price) === data.price && (props.match.params.type === 'all' || props.match.params.type === 'Mixed' ||props.match.params.type === 'Females'||props.match.params.type === 'Males'))) {
+			return filterRooms(data);
+		}
+		
 	});
 
 	const spin = () => {
@@ -210,18 +224,9 @@ const onChangePrice = value => {
 							<span>
 								<b>By distance / m</b>
 							</span>
-							{/* <select
-								className='browser-default custom-select'
-								name='distance'
-								value={distance}
-								onChange={dis}>
-								{Distance.map((data, key) => (
-									<option key={key}>{data}</option>
-								))}
-							</select> */}
 							<Row>
         				<Col span={12}>
-						<Slider
+							<Slider
 							min={0}
 							max={1500}
 							onChange={onChangeDistance}
