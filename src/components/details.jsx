@@ -168,7 +168,7 @@ const Details = (props) => {
 		},
 		{
 			title: 'Verify',
-			content: <Last />,
+			content: <Last hostelName={details.hostel_name}/>,
 			icon: <LoadingOutlined />,
 		},
 	];

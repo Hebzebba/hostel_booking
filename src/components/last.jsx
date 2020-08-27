@@ -13,9 +13,12 @@ const Last = (props) => {
             <h6>Full name : {localStorage.getItem('user')}</h6>
             <h6>Gender : {localStorage.getItem('gender')} </h6>
             <h6>Level : {localStorage.getItem('level')} </h6>
+            <h6>Contact : {props.phone_number} </h6>
+            <h6>Hostel Name : {props.hostelName} </h6>
             <h6>Room type : {props.roomType}</h6>
             <h6>Room number : {props.roomNumber} </h6>
             <h6>Bed type : {props.Bed} </h6>
+            <h6>Date : {props.date} </h6>
             <small className="text-danger">Note: Changes can't be made if submitted</small>
         </div>
 </div>)

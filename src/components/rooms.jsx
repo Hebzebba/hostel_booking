@@ -5,7 +5,7 @@ import Footer from './footer';
 import 'bootstrap/dist/css/bootstrap.css';
 import { Redirect } from 'react-router-dom';
 import SpinnerPage from './spinner';
-
+import { Slider, InputNumber, Row, Col } from 'antd';
 import 'antd/dist/antd.css';
 import '../App.css';
 import {
@@ -23,6 +23,19 @@ import {
 import { fetchData } from '../store/actions/actions';
 
 const Rooms = (props) => {
+
+	const [inputValuePrice, SetInputvaluePrice] = useState(0);
+	const [inputValueDistance, SetInputvalueDistance] = useState(0);
+
+
+const onChangePrice = value => {
+	SetInputvaluePrice(value)	
+	};
+	
+	const onChangeDistance = value => {
+	SetInputvalueDistance(value)	
+};
+
 	const getUnique = (items, value) => {
 		return [...new Set(items.map((item) => item[value]))];
 	};
@@ -84,19 +97,33 @@ const Rooms = (props) => {
 		</MDBCol>
 	);
 
+
 	const filtered = datalist.map((data) => {
+
 		if (props.match.params.type === data.hostel_type) {
 			return filterRooms(data);
 		}
-		if (Number(price) === data.price) {
+		if (props.match.params.type === "all" && Number(inputValueDistance) == 0 && price === 'all' ) {
 			return filterRooms(data);
 		}
-		if (Number(distance) === data.distance) {
+
+		if (Number(price) === data.price && (props.match.params.type === 'all' ||props.match.params.type === 'Mixed' ||props.match.params.type === 'Females'||props.match.params.type === 'Males')) {
 			return filterRooms(data);
 		}
-		if (price === 'all' && distance === 'all' && hostelType === 'all') {
+
+		
+		// if (Number(inputValueDistance) >= 1 && Number(inputValueDistance) <= 200) {
+		// 	console.log(data)
+		// 	return filterRooms(data);
+		// }
+
+		if ((Number(inputValueDistance) >= 1 && Number(inputValueDistance) <= data.distance)  || (Number(price) === data.price && (props.match.params.type === 'all' || props.match.params.type === 'Mixed' ||props.match.params.type === 'Females'||props.match.params.type === 'Males'))) {
+			console.log(data)
 			return filterRooms(data);
 		}
+		
+		
+		// distance
 	});
 
 	const spin = () => {
@@ -144,9 +171,9 @@ const Rooms = (props) => {
 
 					<div className='row d-flex p-2'>
 						<div className='col-sm-12 col-md-4'>
-							<span>
-								<b>By price / GHC</b>
-							</span>
+					<span>
+						<b>By price / GHC</b>
+					</span>
 							<select
 								className='browser-default custom-select'
 								name='price'
@@ -156,13 +183,34 @@ const Rooms = (props) => {
 									<option key={key}>{data}</option>
 								))}
 							</select>
+						
+						{/* <Row>
+						
+        				<Col span={12}>
+						<Slider
+							min={1}
+							max={20}
+							onChange={onChangePrice}
+							value={typeof inputValuePrice === 'number' ? inputValuePrice : 0}
+						/>
+						</Col>
+						<Col span={4}>
+						<InputNumber
+							min={1}
+							max={20}
+							style={{ margin: '0 16px' }}
+							value={inputValuePrice}
+							onChange={onChangePrice}
+						/>
+						</Col>
+      				</Row> */}
 						</div>
 
 						<div className='col-sm-12 col-md-4'>
 							<span>
-								<b>By distance / Km</b>
+								<b>By distance / m</b>
 							</span>
-							<select
+							{/* <select
 								className='browser-default custom-select'
 								name='distance'
 								value={distance}
@@ -170,11 +218,30 @@ const Rooms = (props) => {
 								{Distance.map((data, key) => (
 									<option key={key}>{data}</option>
 								))}
-							</select>
+							</select> */}
+							<Row>
+        				<Col span={12}>
+						<Slider
+							min={0}
+							max={1500}
+							onChange={onChangeDistance}
+							value={typeof inputValueDistance === 'number' ? inputValueDistance : 0}
+						/>
+						</Col>
+						<Col span={4}>
+						<InputNumber
+							min={0}
+							max={1500}
+							style={{ margin: '0 16px' }}
+							value={inputValueDistance}
+							onChange={onChangeDistance}
+						/>
+						</Col>
+      				</Row>
 						</div>
 
 						<div className='col-sm-12 col-md-4'>
-							<span>
+							{/* <span>
 								<b>By Type / Mixed | Males | Females</b>
 							</span>
 							<select
@@ -185,7 +252,7 @@ const Rooms = (props) => {
 								{types.map((data, key) => (
 									<option key={key}>{data}</option>
 								))}
-							</select>
+							</select> */}
 						</div>
 					</div>
 				</div>

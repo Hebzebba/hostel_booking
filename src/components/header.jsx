@@ -33,7 +33,6 @@ class Header extends Component {
 	};
 
 	render() {
-		console.log(this.props)
 		if (localStorage.getItem('token') === null) {
 			return <Redirect to='/' />;
 		}
