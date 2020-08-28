@@ -23,12 +23,11 @@ class Post extends Component {
 
 	handleSubmit = (event) => {
 		const imageNames = this.state.images.map(name => name.name);
-		console.log(imageNames)
-		const { hostel_name, price, one_in_identity, four_in_identity, description, distance, merchant_id, bank_number,account_number,longitude,latitude,hostel_type, map_area } = event
+	
+		const { hostel_name, price, one_in_identity, four_in_identity, description, distance, merchant_id, bank_name,account_number,longitude,latitude,hostel_type, map_area } = event
 		
-		this.props.dispatch(addData(hostel_name, price, one_in_identity, four_in_identity, description, distance, merchant_id, hostel_type, imageNames, map_area,account_number,bank_number,longitude,latitude));
+		this.props.dispatch(addData(hostel_name, price, one_in_identity, four_in_identity, description, distance, merchant_id, hostel_type, imageNames, map_area,account_number,bank_name,longitude,latitude));
 		message.success("Post Successful")
-		// this.props.history.push('http://localhost:3000/dashboard')
 	}
 
 

@@ -37,6 +37,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import AccountNumber from './accountNumber';
 import { fetchData } from '../store/actions/actions';
 import moment from 'moment';
+import SpinnerPage from './spinner';
 
 
 
@@ -119,12 +120,10 @@ const Details = (props) => {
 	let imagesrc = [];
 
 	if (details.hostel_image === undefined || details.hostel_image === undefined) {
-		console.log('loading.....');
+		return <SpinnerPage />
 	} else {
 		imagesrc = details.hostel_image;
 	}
-
-
 
 	const handleBooking = () => { 
 		props.dispatch(booking(localStorage.getItem('indexNumber'),localStorage.getItem('user'),details.hostel_name,localStorage.getItem('gender'),localStorage.getItem('level'),props.room_type,props.room_number,props.bed,details.hostel_type,props.phone_number,moment(new Date())))
@@ -155,7 +154,7 @@ const Details = (props) => {
 				<br />
 				<br />
 				<Tabs>
-					<Tabs.TabPane tab={<span>Bank <img src="/images/bank.jpg" width="40%"/> </span>}key="1"> <AccountNumber /></Tabs.TabPane>
+					<Tabs.TabPane tab={<span>Bank <img src="/images/bank.jpg" width="40%" /> </span>} key="1"> <AccountNumber accountNumber={details.account_number} bankName={details.bank_name}/></Tabs.TabPane>
 					<Tabs.TabPane tab={<span className="pr-5">MoMo pay <img src="/images/mtn.png" width="40%"/></span>}key="2"><MomoPayment/></Tabs.TabPane>
 					<Tabs.TabPane tab={<span>AirtelTigo Cash <img src="/images/tigo.jpg" width="30%"/></span>}key="3"><TigoPayment/></Tabs.TabPane>
 					<Tabs.TabPane tab={<span>Vodafone Cash <img src="/images/vodafone.png" width="40%"/></span>}key="4"><VodaPayment/></Tabs.TabPane>
@@ -172,7 +171,6 @@ const Details = (props) => {
 			icon: <LoadingOutlined />,
 		},
 	];
-	console.log(props.bookFail);
 	return (
 		<>
 			<div className='main-container'>

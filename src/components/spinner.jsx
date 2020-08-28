@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SpinnerPage = () => {
+const SpinnerPage = (props) => {
 	return (
 		<>
 			<div className='spinner-grow text-primary' role='status'>
