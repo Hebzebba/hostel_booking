@@ -32,44 +32,10 @@ const UserForm = (props) => {
 			}
 	})
 	};
-	const handleChangeName = (e) => {
-		setfull_name(e.target.value);
-		props.dispatch({
-			type: actionTpes.BOOK_DATA_START,
-			payload: {
-				full_name:e.target.value
-			}
-	})
 	
-	};
-	const handleChangeGender = (e) => {
-		setGender(e);
-		props.dispatch({
-			type: actionTpes.BOOK_DATA_START,
-			payload: {
-				gender:e
-			}
-	})
 	
-	};
-	const handleChangeLevel = (e) => {
-		setLevel(e);
-		props.dispatch({
-			type: actionTpes.BOOK_DATA_START,
-			payload: {
-				level:e
-			}
-	})
-	
-	};
 	const handleChangeRoomNumber = (e) => {
 		setroom_number(e);
-		props.dispatch({
-			type: actionTpes.BOOK_DATA_START,
-			payload: {
-				room_number:e
-			}
-	})
 	
 	};
 	const handleChangeBed = (e) => {
@@ -130,9 +96,12 @@ const UserForm = (props) => {
 					</Form.Item>
 					<Form.Item label="Bunk bed">
 						<Select onChange={handleChangeBed} defaultValue = "">
-							<Select.Option value="Top Bed">Top Bed</Select.Option>
-							<Select.Option value="Down Bed">Down Bed</Select.Option>
+							<Select.Option value="1">1</Select.Option>
+							<Select.Option value="2">2</Select.Option>
+							<Select.Option value="3">3</Select.Option>
+							<Select.Option value="4">4</Select.Option>
 						</Select>
+						<small className="text-danger">all odd numbers (1 & 3) are top bed and all even numbers (2 & 4) are down bed</small>
 					</Form.Item>
 					</div>
 			);
@@ -162,12 +131,11 @@ const UserForm = (props) => {
 					<Input type='text' required={true}
 						value={localStorage.getItem('user')}
 						contentEditable={false}
-						onChange={handleChangeName}
 					/>
 				</Form.Item>
 				<Form.Item label='Gender' required={true}>
 					<Input type="text" value={localStorage.getItem('gender')} contentEditable={false}
-					onChange={handleChangeGender}
+					
 					/>
 				</Form.Item>
 
@@ -204,7 +172,7 @@ const UserForm = (props) => {
 					/>
 				</Form.Item>
 
-				<Form.Item label='Date' required={true}>
+				<Form.Item label='Date' required={true} >
 					<DatePicker defaultValue={moment(new Date())} disabled onChange={handleChangeDate}/>
 				</Form.Item>
 			</Form>

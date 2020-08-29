@@ -154,7 +154,7 @@ const Details = (props) => {
 				<br />
 				<br />
 				<Tabs>
-					<Tabs.TabPane tab={<span>Bank <img src="/images/bank.jpg" width="40%" /> </span>} key="1"> <AccountNumber accountNumber={details.account_number} bankName={details.bank_name}/></Tabs.TabPane>
+					<Tabs.TabPane tab={<span>Bank <img src="/images/bank.jpg" width="40%" /> </span>} key="1"> <AccountNumber accountNumber={details.account_number} bankName={details.bank_name} accountName={details.hostel_name}/></Tabs.TabPane>
 					<Tabs.TabPane tab={<span className="pr-5">MoMo pay <img src="/images/mtn.png" width="40%"/></span>}key="2"><MomoPayment/></Tabs.TabPane>
 					<Tabs.TabPane tab={<span>AirtelTigo Cash <img src="/images/tigo.jpg" width="30%"/></span>}key="3"><TigoPayment/></Tabs.TabPane>
 					<Tabs.TabPane tab={<span>Vodafone Cash <img src="/images/vodafone.png" width="40%"/></span>}key="4"><VodaPayment/></Tabs.TabPane>
@@ -168,7 +168,7 @@ const Details = (props) => {
 		{
 			title: 'Verify',
 			content: <Last hostelName={details.hostel_name}/>,
-			icon: <LoadingOutlined />,
+			icon: "",
 		},
 	];
 	return (

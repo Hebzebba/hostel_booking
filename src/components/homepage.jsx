@@ -4,7 +4,7 @@ import Header from './header';
 import Footer from './footer';
 import 'bootstrap/dist/css/bootstrap.css';
 import { connect } from 'react-redux';
-import { studentLogin, fetchData } from '../store/actions/actions';
+import {fetchData } from '../store/actions/actions';
 import { Redirect } from 'react-router-dom';
 
 
@@ -34,7 +34,6 @@ class Home extends Component {
 	types = ['all', ...this.types];
 
 	render() {
-		console.log(this.props)
 		if (localStorage.getItem('token') === null) {
 			return <Redirect to='/' />;
 		}

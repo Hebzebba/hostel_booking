@@ -50,7 +50,6 @@ class Dashboard extends Component {
   logout = () => { 
     localStorage.removeItem('isAdmin')
     localStorage.removeItem('Admintoken');
-    return <Redirect to="/admin"/>
   }
 
   render() {
@@ -92,7 +91,9 @@ class Dashboard extends Component {
               icon={<UploadOutlined />}
               onClick={this.logout}
             >
-              Logout
+          <a href="/admin">
+                Logout
+          </a>
             </Menu.Item>
           </Menu>
         </Sider>

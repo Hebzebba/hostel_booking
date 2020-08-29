@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { studentLogin } from '../store/actions/actions';
+import { studentLogin, fetchData } from '../store/actions/actions';
+
 import { Redirect } from 'react-router-dom';
 import {
 	MDBMask,
@@ -24,6 +25,8 @@ class ClassicFormPage extends React.Component {
 		password: '',
 	};
 
+	
+
 	handleIndexChange = (e) => {
 		return this.setState({ indexNumber: e.target.value });
 	};
@@ -41,7 +44,7 @@ class ClassicFormPage extends React.Component {
 
 	render() {
 		if (localStorage.getItem('token') != null) {
-			
+			this.props.dispatch(fetchData())
 			return <Redirect to='/home' />
 		}
 		else {
@@ -68,7 +71,7 @@ class ClassicFormPage extends React.Component {
 								</h5>
 									<hr className='hr-light' />
 									<h6 className='mb-4 text-light'>
-										<small className="text-warning">The default password is changeme</small>
+										<small className="text-warning">The default password is <span className="text-light">'changeme'</span> </small>
 								</h6>
 								</MDBAnimation>
 

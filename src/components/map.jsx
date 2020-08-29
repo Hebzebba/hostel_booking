@@ -41,6 +41,7 @@ const Map = (props) => {
             {props.data.map(result => (
                 <Marker key={result._id} latitude={result.latitude} longitude={result.longitude}>
                     <Link to={`/details/${result._id}`}>
+                        <small className="text-light">{result.hostel_name}</small>
                     <button className="marker">
                         <img src="images/marker.png" width="100%" alt=""/>
                         </button>

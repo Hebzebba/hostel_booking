@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment';
+
 
 const Last = (props) => { 
      
@@ -18,7 +20,7 @@ const Last = (props) => {
             <h6>Room type : {props.roomType}</h6>
             <h6>Room number : {props.roomNumber} </h6>
             <h6>Bed type : {props.Bed} </h6>
-            <h6>Date : {props.date} </h6>
+            <h6>Date : {`${new Date().toDateString()}` } </h6>
             <small className="text-danger">Note: Changes can't be made if submitted</small>
         </div>
 </div>)
@@ -28,5 +30,6 @@ const mapStateToProps = state => ({
     roomType: state.book.room_type,
     roomNumber: state.book.room_number,
     Bed: state.book.bed,
+    phone_number: state.book.phone_number,
 });
 export default connect(mapStateToProps)(Last);

@@ -12,12 +12,20 @@ import AdminLogin from "./components/adminLogin";
 import Contact from './components/contact';
 import Map from './components/map';
 import About from './components/about';
+import { fetchData } from "./store/actions/actions";
+import {connect} from 'react-redux'
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
+
+  componentDidMount() { 
+    this.props.dispatch(fetchData())
+    
+  }
+
   render() {
     return (
       <Router>
@@ -38,4 +46,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect()(App);

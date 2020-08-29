@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import { connect } from "react-redux";
+import {fetchData } from '../store/actions/actions';
+
 import {
 	MDBNavbar,
 	MDBNavbarBrand,
@@ -16,9 +19,8 @@ import {
 	MDBDropdownToggle
 } from 'mdbreact';
 
-import { Menu } from 'antd';
-
 class Header extends Component {
+
 	state = {
 		isOpen: false,
 	};
@@ -33,6 +35,7 @@ class Header extends Component {
 	};
 
 	render() {
+		console.log(this.props.list)
 		if (localStorage.getItem('token') === null) {
 			return <Redirect to='/' />;
 		}
@@ -49,15 +52,12 @@ class Header extends Component {
 							<MDBNavLink to='/home' className="header-link">Home</MDBNavLink>
 						</MDBNavItem>
 						<MDBNavItem>
-							{/* <MDBNavLink to='/rooms' className="header-link">Hostels</MDBNavLink> */}
 					<MDBDropdown>
 								
                 <MDBDropdownToggle nav caret>
                   <span className="mr-2">Hostel</span>
                 </MDBDropdownToggle>
                 <MDBDropdownMenu>
-                  
-
 				{this.props.links.map((data, key) => ( 
 					<MDBDropdownItem href={`/rooms/${data}`} key={key}>{data}</MDBDropdownItem>))
 				}
@@ -94,5 +94,7 @@ class Header extends Component {
 		);
 	}
 }
-
-export default Header;
+const mapStateToprops = (state) => ({
+	list : state.data,
+});
+export default connect(mapStateToprops)(Header);

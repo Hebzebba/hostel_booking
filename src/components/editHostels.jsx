@@ -56,7 +56,7 @@ const toggle = (id) => {
 			name: dat.hostel_name,
 			price: dat.price,
 			edit: <button className="btn btn-primary btn-sm" onClick={()=>toggle(dat._id)}>Edit</button>,
-			delete: <button className="btn btn-danger btn-sm" onClick={()=>deleteHostel(dat._id)}>Delete</button>,
+			delete: <button className="btn btn-danger btn-sm" onClick={()=>deleteHostel(dat._id)}><a href="/dashboard" className="text-light">Delete</a></button>,
 		}))
 	};
 
@@ -69,11 +69,7 @@ const toggle = (id) => {
         <MDBModalBody>
           <EditHostelForm hostelId={hostel_id} />
         </MDBModalBody>
-        <MDBModalFooter>
-          <MDBBtn color="secondary" onClick={toggle}>Close</MDBBtn>
-          <MDBBtn color="primary">Save changes</MDBBtn>
-        </MDBModalFooter>
-			</MDBModal>
+	</MDBModal>
 			</div>
 	);
 }

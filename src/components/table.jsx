@@ -10,8 +10,6 @@ const TableData = (props) => {
 	useEffect(() => { 
 		props.dispatch(fetchBookedData())
 	}, []);
-	
-	console.log(props.data)
 
 	const data = {
 		columns: [

@@ -29,14 +29,15 @@ const AdminLogin = (props) => {
   }
 
   const handleSubmit = e => { 
-    e.preventDefault();
-    // props.dispatch(adminLogin(emial,password))
     axios.post('http://localhost:5000/adminlogin', {email,password})
       .then(res => { 
         localStorage.setItem('isAdmin', res.data.msg);
         localStorage.setItem('Admintoken', res.data.tokem);
       })
-    .catch(err=>err)
+      .catch(err => err)
+    
+    console.log(localStorage.getItem("Admintoken"))
+    return <Redirect to="/dashboard"/>
   }
   
   if (localStorage.getItem('isAdmin') === 'Admin' && localStorage.getItem('Admintoken') != null) { 

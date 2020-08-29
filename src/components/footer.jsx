@@ -26,7 +26,13 @@ class Footer extends Component {
 									<Link to='/home'>Home</Link>
 								</li>
 								<li className='list-unstyled'>
-									<Link to='/rooms'>Hostels</Link>
+									<Link to='/rooms/all'>Hostels</Link>
+								</li>
+								<li className='list-unstyled'>
+									<Link to='/contact'>Contact Us</Link>
+								</li>
+								<li className='list-unstyled'>
+									<Link to='/about'>About</Link>
 								</li>
 							</ul>
 						</MDBCol>
