@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { Form, Input, Select, DatePicker } from 'antd';
+import React, { useState } from 'react';
+import { Form, Input, Select, DatePicker,message } from 'antd';
 import 'react-phone-number-input/style.css';
-import { useDispatch, useSelector,connect } from 'react-redux';
+import {connect } from 'react-redux';
 import PhoneInput from 'react-phone-number-input';
-import {bookStart}from "../store/actions/actions" 
 import * as actionTpes from '../store/actions/actionTypes';
+import axios from "axios";
 import moment from 'moment';
 const UserForm = (props) => {
 	const [componentSize, setComponentSize] = useState('');
@@ -33,10 +33,34 @@ const UserForm = (props) => {
 	})
 	};
 	
-	
 	const handleChangeRoomNumber = (e) => {
-		setroom_number(e);
 	
+		axios.post("http://localhost:5000/check", {
+			e:e
+		})
+		.then(res => { 
+			if (res.data.result != null) { 
+			message.warn("The room has already been booked")
+				
+			props.dispatch({
+			type: actionTpes.BOOK_DATA_START,
+			payload: {
+				room_number:""
+			}
+		})
+			}
+
+			else {
+			setroom_number(e);
+			props.dispatch({
+			type: actionTpes.BOOK_DATA_START,
+			payload: {
+				room_number:e
+			}
+		})
+			}
+		})
+		.catch(err=>err)
 	};
 	const handleChangeBed = (e) => {
 		setBed(e);
@@ -73,15 +97,16 @@ const UserForm = (props) => {
 	const checkRoomType = () => {
 		if (roomType === '1 in a room') {
 			return (
+				<>
 				<Form.Item label=' Room Number'>
 					<Select onChange={handleChangeRoomNumber} defaultValue = "Select room number">
 						{props.hostelName[0].map((data, key) => (
-							<Select.Option key={key} value={data}>{data}</Select.Option>
-							
+							<Select.Option key={key} value={data}>{data}</Select.Option>	
 						))}
-					</Select>
+						</Select>
+					</Form.Item>
 					
-				</Form.Item>
+				</>
 			);
 		} else if (roomType === '4 in a room') {
 			return (

@@ -141,12 +141,14 @@ export const bookStart = ( full_name,gender, level,room_type,room_number,bed,pho
 	}
 });
 
-export const bookSucces = () => ({
+export const bookSucces = (payload) => ({
 	type: actionTpes.BOOK_DATA_SUCCESS,
+	payload
 });
 
-export const bookFail = () => ({
+export const bookFail = (payload) => ({
 	type: actionTpes.BOOK_DATA_FAIL,
+	payload
 });
 
 export const booking = (
@@ -177,11 +179,16 @@ export const booking = (
 			tel_number: tel_number,
 			date: date,
 		})
-		.then(res => { 		
-			dispatch(bookSucces())	
+		.then(res => { 	
+			if (res.data.msg === "User already exist") {
+				dispatch(bookFail(res.data.msg));
+			 }
 		}
 		)
-		.catch(err=>dispatch(bookFail()));
+		.catch(err => {
+			dispatch(bookFail(err))
+		} 
+		);
 };
 // delete data
 export const deleteHostel = (id) => {

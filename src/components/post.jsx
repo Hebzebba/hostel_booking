@@ -159,7 +159,7 @@ class Post extends Component {
 </Form.Item>
 
 <Form.Item required={true} name="longitude">
-	<InputNumber style={{width:"100%"}} placeholder="Longitude" type="number"/>
+							<InputNumber style={{ width: "100%" }} placeholder="Longitude" type="number" precision={-0.0000000000000000}/>
 </Form.Item>						
 
 <Form.Item required={true} name="latitude">

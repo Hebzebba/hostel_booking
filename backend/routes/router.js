@@ -98,12 +98,12 @@ router.route('/booking').post((req, res) => {
 	User.findOne({ index_number: IndexNumber })
 		.then(user => {
 			if (user) {
-				return res.status(409).json({
+				return res.json({
 					msg: "User already exist"
 				})
 			}
-			else { 
-				const user = new User({
+		else { 
+		 const user = new User({
 		index_number:req.body.index_number,
 		full_name: req.body.full_name,
 		hostelName: req.body.hostel_name,
@@ -119,13 +119,30 @@ router.route('/booking').post((req, res) => {
 
 	user.save()
 		.then(result => { 
-			res.json(result)
-		}).catch(err=>console.log(err))
+			res.json({ result:"Data added successful" })
+		}).catch(err=>console.log("User already exits"))
 			}
 		})
 
 	
 });
+
+router.route('/check').post((req, res) => {
+	let validate = req.body.e;
+	User.findOne({ room_code: validate })
+		.then(result =>res.json({msg:"The room has already been booked", result}))
+		.catch(err => err)
+	
+})
+
+router.route('/check2').post((req, res) => { 
+	let validate = req.body.e;
+	User.find({ room_code: validate })
+		.then(result =>res.json({msg:"The room has already been booked", result}))
+		.catch(err => err)
+})
+
+
 
 router.route('/details/:id').get((req, res) => {
 	const id = req.params.id;

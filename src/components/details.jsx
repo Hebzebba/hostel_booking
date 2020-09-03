@@ -9,9 +9,9 @@ import{
 
 	UserOutlined,
 	SolutionOutlined,
-	LoadingOutlined,
-	PushpinOutlined,
+	ScheduleOutlined,
 	HomeOutlined,
+	PushpinOutlined,
 } from '@ant-design/icons';
 import {
 	MDBCard,
@@ -126,14 +126,9 @@ const Details = (props) => {
 	}
 
 	const handleBooking = () => { 
-		props.dispatch(booking(localStorage.getItem('indexNumber'),localStorage.getItem('user'),details.hostel_name,localStorage.getItem('gender'),localStorage.getItem('level'),props.room_type,props.room_number,props.bed,details.hostel_type,props.phone_number,moment(new Date())))
-
-		if (props.bookFail) {
+		props.dispatch(booking(localStorage.getItem('indexNumber'), localStorage.getItem('user'), details.hostel_name, localStorage.getItem('gender'), localStorage.getItem('level'), props.room_type, props.room_number, props.bed, details.hostel_type, props.phone_number, moment(new Date())))
+		if (props.bookFail != undefined) {
 			message.warning('User with that index already exist!')
-		}
-		else { 
-
-		  message.success('Process complete!')
 		}
 	}
 	
@@ -168,9 +163,10 @@ const Details = (props) => {
 		{
 			title: 'Verify',
 			content: <Last hostelName={details.hostel_name}/>,
-			icon: "",
+			icon: <ScheduleOutlined />,
 		},
 	];
+
 	return (
 		<>
 			<div className='main-container'>
@@ -354,7 +350,8 @@ const mapStateToProps = state => ({
 	bed : state.book.bed,
 	phone_number : state.book.phone_number,
 	date: state.book.date,
-	bookFail:state.book.bookFail,
+	bookFail: state.book.bookFail,
+	bookSucces:state.book.bookSucces,
 })
 
 export default connect(mapStateToProps)(Details);
